@@ -39,7 +39,7 @@ exports.login = async (req, res) => {
       });
 
     res.status(200).json({email: email, accessToken: accessToken,
-      firstLoginBoolean: 1, userid: userid});
+      userid: userid});
   } else {
     res.status(401).send('Invalid credentials or user does not exist');
   }

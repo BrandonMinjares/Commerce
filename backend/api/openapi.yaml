@@ -13,6 +13,54 @@ servers:
   - url: http://localhost:3010/v0
 
 paths:
+  /login:
+    post:
+      description: Login
+      requestBody:
+        description: Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+      responses:
+        200:
+          description: Email Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        409:
+          description: Email address taken or password incorrect
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /register:
+    post:
+      description: Register
+      requestBody:
+        description: Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        201:
+          description: Books Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterSuccess'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /dummy:
     get:
       description: Dummy Endpoint
@@ -49,3 +97,62 @@ components:
           type: string
       required:
         - message
+
+    Credentials:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - email
+        - password
+
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        accessToken:
+          type: string
+        userid:
+          type: string
+      required:
+        - email
+        - accessToken
+
+    Register:
+      type: object
+      properties:
+        name:
+          type: object
+          properties:
+            first:
+              type: string
+            last:
+              type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+        - name
+        - email
+        - password
+
+    RegisterSuccess:
+      type: string
+      properties:
+        firstname:
+          type: string
+
+
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT    # optional, arbitrary value for documentation purposes
