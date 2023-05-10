@@ -10,7 +10,7 @@ const pool = new Pool({
 
 exports.uploadItem = async (req, res) => {
   const body = req.body;
-
+console.log(body);
   const insert = 'Insert into item VALUES ($1, $2)';
   const insertQuery = {
     text: insert,
@@ -23,5 +23,4 @@ exports.uploadItem = async (req, res) => {
   }
 
   return res.status(201).json('Item has been created');
-  console.log('upload item');
 };
