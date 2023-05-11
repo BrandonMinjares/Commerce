@@ -8,8 +8,11 @@ const pool = new Pool({
   password: process.env.POSTGRES_PASSWORD,
 });
 
+
 exports.uploadItem = async (req, res) => {
   const body = req.body;
+  const image = req.body.fileImage;
+  console.log(image);
   console.log(body);
   const insert = `Insert into item(userId, data) VALUES ($1, $2) ` +
     'RETURNING itemID';

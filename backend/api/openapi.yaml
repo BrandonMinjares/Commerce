@@ -87,9 +87,27 @@ paths:
         description: Request Body
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Item'
+              type: object
+              properties:
+                fileImage:
+                  type: string
+                  format: binary
+                name:
+                  type: string
+                price:
+                  type: string
+                condition:
+                  type: string
+              required:
+                - name
+                - price
+                - condition
+                - fileImage
+            encoding:
+              fileImage:
+                contentType: image/png, image/jpeg
       responses:
         201:
           description: Books Response

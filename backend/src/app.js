@@ -15,7 +15,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 const apiSpec = path.join(__dirname, '../api/openapi.yaml');
 
 const apidoc = yaml.load(fs.readFileSync(apiSpec, 'utf8'));
