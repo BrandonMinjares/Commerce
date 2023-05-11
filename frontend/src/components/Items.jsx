@@ -12,6 +12,7 @@ import {red} from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {Grid} from '@mui/material';
 
 
 const getItems = (setItems) => {
@@ -54,75 +55,71 @@ const Items = () => {
   }, []);
 
   return (
-    <div>
-            items
-
-      {items.length > 0 &&
+      <Grid container>
+        {items.length > 0 &&
             items.map((row) => (
-              <div key={row.itemid}>
+              <Grid item key={row.itemid} xs={12} sm={6} md={4}>
                 {row.data.name}
-              </div>
-            ))}
-
-
-      <Card sx={{maxWidth: 286}}>
-        <CardHeader
-          avatar={
-            <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
-            R
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
-        />
-        <CardMedia
-          component="img"
-          height="194"
-          image="/static/images/cards/paella.jpg"
-          alt="Paella dish"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
+                <Card sx={{maxWidth: 300}}>
+                  <CardHeader
+                    avatar={
+                      <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">R
+                      </Avatar>
+                    }
+                    action={
+                      <IconButton aria-label="settings">
+                        <MoreVertIcon />
+                      </IconButton>
+                    }
+                    title={row.data.name}
+                    subheader="September 14, 2016"
+                  />
+                  <CardMedia
+                    component="img"
+                    height="194"
+                    image="/static/images/cards/paella.jpg"
+                    alt="Paella dish"
+                  />
+                  <CardContent>
+                    <Typography variant="body2" color="text.secondary">
           This impressive paella is a perfect party dish and a fun meal to cook
           if you like.
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Method:</Typography>
-            <Typography paragraph>
+                    </Typography>
+                  </CardContent>
+                  <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                      <ShareIcon />
+                    </IconButton>
+                  </CardActions>
+                  <Collapse timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>Method:</Typography>
+                      <Typography paragraph>
             aside for 10 minutes.
-            </Typography>
-            <Typography paragraph>
+                      </Typography>
+                      <Typography paragraph>
             Heat oil in a (14- to 16-inch) paella pan or a large, deep sk
-            </Typography>
-            <Typography paragraph>
+                      </Typography>
+                      <Typography paragraph>
             Add rice and stir very gently to distribute. Top with artichokes and
             15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
             mussels, tucking them down into the rice, and cook again without
             stirring, until mussels have opened and rice is just tender, 5 to 7
             minutes more. (Discard any mussels that don&apos;t open.)
-            </Typography>
-            <Typography>
+                      </Typography>
+                      <Typography>
             Set aside off of the heat to let
-            </Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
-    </div>
+                      </Typography>
+                    </CardContent>
+                  </Collapse>
+                </Card>
+              </Grid>
+
+            ))}
+    </Grid>
   );
 };
 
