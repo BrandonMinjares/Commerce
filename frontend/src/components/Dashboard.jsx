@@ -1,9 +1,11 @@
 import React from 'react';
+import Items from './Items';
 
 const Dashboard = () => {
   return (
     <div>
-      hello
+      Hello from dashboard
+      <Items/>
     </div>
   );
 };

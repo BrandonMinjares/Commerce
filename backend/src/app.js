@@ -38,6 +38,7 @@ app.post('/v0/login', auth.login);
 app.post('/v0/register', auth.register);
 
 app.post('/v0/item', auth.check, item.uploadItem);
+app.get('/v0/item', auth.check, item.getItems);
 
 // Your routes go here
 

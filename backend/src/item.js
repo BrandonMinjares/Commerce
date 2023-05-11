@@ -11,8 +11,8 @@ const pool = new Pool({
 
 exports.uploadItem = async (req, res) => {
   const body = req.body;
-  console.log(req.files[0]);
-  console.log(body);
+  // console.log(req.files[0]);
+  // console.log(body);
 
   const image = {
     'originalname': req.files[0].originalname,
@@ -33,7 +33,19 @@ exports.uploadItem = async (req, res) => {
   if (rows.length != 1) {
     return res.status(400).json('Bad request');
   }
-  console.log(rows);
+  // console.log(rows);
 
   return res.status(201).json('Item has been created');
+};
+
+exports.getItems = async (req, res) => {
+  console.log('in get items');
+
+  const select = 'Select * from item';
+  const selectQuery = {
+    text: select,
+  };
+  const {rows} = await pool.query(selectQuery);
+  console.log(rows);
+  return res.status(200).json(rows);
 };

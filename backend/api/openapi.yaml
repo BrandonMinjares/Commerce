@@ -104,6 +104,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+    get:
+      security:
+        - bearerAuth: []
+      description: Get Items
+      responses:
+        200:
+          description: Item Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemsArray'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 
 components:
   schemas:
@@ -194,6 +212,12 @@ components:
         - name
         - price
         - condition
+
+    ItemsArray:
+      type: array
+      properties:
+        items:
+          $ref: '#/components/schemas/Item'
 
     ItemUploadSuccess:
       type: string
