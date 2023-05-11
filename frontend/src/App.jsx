@@ -1,7 +1,9 @@
 import React from 'react';
+import {Route, HashRouter, Routes} from 'react-router-dom';
 
-import Dummy from './components/Dummy';
-import Emoji from './components/Emoji';
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+
 
 /**
  * Simple component with no state.
@@ -10,10 +12,13 @@ import Emoji from './components/Emoji';
  */
 function App() {
   return (
-    <div>
-      <Dummy />
-      <Emoji />
-    </div>
+    <HashRouter>
+      <Routes>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/" element={<Login/>}/>
+      </Routes>
+    </HashRouter>
   );
 }
 
