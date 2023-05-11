@@ -89,24 +89,10 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: object
-              properties:
-                fileImage:
-                  type: string
-                  format: binary
-                name:
-                  type: string
-                price:
-                  type: string
-                condition:
-                  type: string
-              required:
-                - name
-                - price
-                - condition
+              $ref: '#/components/schemas/Item'
       responses:
         201:
-          description: Books Response
+          description: Item Response
           content:
             application/json:
               schema:
@@ -194,12 +180,16 @@ components:
     Item:
       type: object
       properties:
+        fileImage:
+          type: string
+          format: binary
         name:
           type: string
         price:
           type: string
         condition:
           type: string
+          enum: [like new, great, good, poor]
       required:
         - name
         - price
