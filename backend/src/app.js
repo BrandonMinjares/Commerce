@@ -33,7 +33,7 @@ app.get('/v0/dummy', dummy.get);
 app.post('/v0/login', auth.login);
 app.post('/v0/register', auth.register);
 
-app.post('/v0/item', item.uploadItem);
+app.post('/v0/item', auth.check, item.uploadItem);
 
 // Your routes go here
 

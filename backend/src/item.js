@@ -10,17 +10,20 @@ const pool = new Pool({
 
 exports.uploadItem = async (req, res) => {
   const body = req.body;
-console.log(body);
-  const insert = 'Insert into item VALUES ($1, $2)';
+  console.log(body);
+  const insert = `Insert into item(userId, data) VALUES ($1, $2) ` +
+    'RETURNING itemID';
   const insertQuery = {
     text: insert,
-    values: [req.user.id, body],
+    values: [req.user.userid, body],
   };
 
   const {rows} = await pool.query(insertQuery);
+
   if (rows.length != 1) {
     return res.status(400).json('Bad request');
   }
+  console.log(rows);
 
   return res.status(201).json('Item has been created');
 };

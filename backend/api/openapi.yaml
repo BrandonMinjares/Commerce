@@ -80,6 +80,8 @@ paths:
 
   /item:
     post:
+      security:
+        - bearerAuth: []
       description: Upload Item
       requestBody:
         description: Request Body
