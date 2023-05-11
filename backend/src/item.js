@@ -11,6 +11,7 @@ const pool = new Pool({
 
 exports.uploadItem = async (req, res) => {
   const body = req.body;
+  console.log(req.files);
   const image = req.body.fileImage;
   console.log(image);
   console.log(body);

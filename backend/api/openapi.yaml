@@ -104,10 +104,6 @@ paths:
                 - name
                 - price
                 - condition
-                - fileImage
-            encoding:
-              fileImage:
-                contentType: image/png, image/jpeg
       responses:
         201:
           description: Books Response
