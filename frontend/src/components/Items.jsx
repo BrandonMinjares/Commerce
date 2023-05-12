@@ -71,7 +71,6 @@ const Items = () => {
       {items.length > 0 &&
             items.map((row) => (
               <Grid item key={row.itemid} xs={12} sm={6} md={4}>
-                <img src = {row.data.imageUrl} alt={row.data.imageUrl}></img>
                 <Card>
                   <CardHeader
                     avatar={

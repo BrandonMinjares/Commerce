@@ -10,22 +10,32 @@ import ListItem from '@mui/material/ListItem';
 import Items from './Items';
 import {Button} from '@mui/material';
 
+import {useNavigate} from 'react-router-dom';
+
 const drawerWidth = 300;
 
 /**
  * @return {void}
  */
 export default function Dashboard() {
+  const navigate = useNavigate();
+
+  const navigateToCreateItem = () => {
+    // 👇️ navigate to /
+    navigate('/product/create');
+  };
+
   return (
     <Box sx={{display: 'flex'}}>
       <CssBaseline />
       <AppBar
         position='fixed'
-        sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
+        sx={{zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor: 'white',
+          color: 'black'}}
       >
         <Toolbar>
           <Typography variant='h6' noWrap component='div'>
-            Clipped drawer
+            E-Commerce
           </Typography>
         </Toolbar>
       </AppBar>
@@ -44,7 +54,8 @@ export default function Dashboard() {
         <Box sx={{overflow: 'auto'}}>
           <List>
             <ListItem disablePadding>
-              <Button variant="contained">Create New Product</Button>
+              <Button variant="contained"
+                onClick={navigateToCreateItem}>Create New Product</Button>
             </ListItem>
           </List>
         </Box>
