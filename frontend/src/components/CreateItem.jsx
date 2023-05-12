@@ -1,63 +1,126 @@
-import {Box, Button, FormControl, Grid, InputAdornment, InputLabel,
-  MenuItem, Select, TextField,
-  TextareaAutosize} from '@mui/material';
+import {Box, Button, FormControl, MenuItem,
+  TextField, TextareaAutosize} from '@mui/material';
 import React from 'react';
 
-const categories = [
-  {value: 'category1', label: 'Category 1'},
-  {value: 'category2', label: 'Category 2'},
-  {value: 'category3', label: 'Category 3'},
-];
 
-const CreateItem = () => {
+/**
+ * @return {void}
+ */
+export default function CreateItem() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const user = {
+      email: data.get('email'),
+      password: data.get('password'),
+    };
+    fetch('http://localhost:3010/v0/login', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw res;
+        return res.json();
+      })
+      .catch((err) => {
+        console.log(err);
+        // setError(`${err.status} - ${err.statusText}`);
+      });
+  };
+
   return (
-    <Grid container spacing={2} sx={{backgroundColor: 'white'}}>
-      <Grid item xs={12}>
-        <Box sx={{backgroundColor: 'grey'}}>
-            pictures
-        </Box>
-      </Grid>
-      <Grid item xs={6}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField fullWidth label="Product Name" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel>Category</InputLabel>
-              <Select>
-                {categories.map((category) => (
-                  <MenuItem key={category.value} value={category.value}>
-                    {category.label}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="Price" fullWidth
-              InputProps={{startAdornment:
-            <InputAdornment position="start">$</InputAdornment>}} />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField label="Quantity" fullWidth type="number" />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={6}>
-        <TextareaAutosize
-          minRows={16}
-          placeholder="Enter product description..." />
-      </Grid>
+    <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1}}>
+      <FormControl>
+        <TextField
+          type="file"
+          inputProps={{accept: 'image/*'}}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="product"
+          label="Product Name"
+          name="name"
+          placeholder="Enter Name"
+          autoFocus
+          aria-label='Product Name'
+        />
+        <TextField
+          select
+          margin="normal"
+          required
+          fullWidth
+          id="category"
+          label="Category"
+          name="category"
+          placeholder="Select category"
+          autoFocus
+          aria-label='Category'
+        >
+          <MenuItem value={'Vehicles'}>Vehicles</MenuItem>
+          <MenuItem value={'Property'}>Property</MenuItem>
+          <MenuItem value={'Apparel'}>Apparel</MenuItem>
+          <MenuItem value={'Electronics'}>Electronics</MenuItem>
+          <MenuItem value={'Computers'}>Computers</MenuItem>
+          <MenuItem value={'Instruments'}>Instruments</MenuItem>
+          <MenuItem value={'Toys & Games'}>Toys & Games</MenuItem>
+          <MenuItem value={'Sporting Goods'}>Sporting Goods</MenuItem>
+          <MenuItem value={'Home Goods'}>Home Goods</MenuItem>
+        </TextField>
 
-      <Grid item xs={6}>
-        <Button fullWidth>Cancel</Button>
-      </Grid>
-      <Grid item xs={6}>
-        <Button fullWidth>Create</Button>
-      </Grid>
-    </Grid>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="price"
+          label="$ Price"
+          name="price"
+          autoFocus
+          aria-label='Price'
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="quantity"
+          label="Quantity"
+          name="quantity"
+          autoFocus
+          aria-label='Quantity'
+          type='number'
+          min={0}
+
+        />
+        <TextareaAutosize
+          aria-label="minimum height"
+          minRows={10}
+          label="Description"
+          placeholder="Enter Product Description"
+        />
+        <Button
+          type="submit"
+          aria-label='Cancel'
+          fullWidth
+          variant="contained"
+          sx={{mt: 3, mb: 2}}
+        >
+              Cancel
+        </Button>
+        <Button
+          type="submit"
+          aria-label='Create'
+          fullWidth
+          variant="contained"
+          sx={{mt: 3, mb: 2}}
+        >
+              Create
+        </Button>
+      </FormControl>
+
+    </Box>
   );
 };
-
-export default CreateItem;
