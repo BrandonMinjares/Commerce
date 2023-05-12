@@ -38,6 +38,16 @@ const getItems = (setItems) => {
       return response.json();
     })
     .then((res) => {
+      for (let i = 0; i < res.length; i++) {
+        if (res[i].data.fileImage.buffer.data) {
+            const buffer = (res[i].data.fileImage.buffer.data);
+            const mimetype = (res[i].data.fileImage.buffer.mimetype);
+            const blob = new Blob([buffer], {type: mimetype});
+            const imageUrl = URL.createObjectURL(blob);
+            res[i].data.imageUrl = imageUrl;
+        }
+      }
+      console.log(res);
       setItems(res);
     })
     .catch((error) => {
@@ -55,11 +65,13 @@ const Items = () => {
     getItems(setItems);
   }, []);
 
+
   return (
     <Grid container spacing={2}>
       {items.length > 0 &&
             items.map((row) => (
               <Grid item key={row.itemid} xs={12} sm={6} md={4}>
+                <img src = {row.data.imageUrl} alt={row.data.imageUrl}></img>
                 <Card>
                   <CardHeader
                     avatar={
@@ -76,7 +88,7 @@ const Items = () => {
                   />
                   <CardMedia
                     component="img"
-                    image="/static/images/cards/paella.jpg"
+                    src={row.data.imageUrl}
                     alt="Paella dish"
                   />
                   <CardContent>
