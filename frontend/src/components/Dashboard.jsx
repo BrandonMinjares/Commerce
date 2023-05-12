@@ -1,46 +1,58 @@
-
-
-import React from 'react';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import AppBar from '@mui/material/AppBar';
+import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import ListItem from '@mui/material/ListItem';
 import Items from './Items';
-import CreateItem from './CreateItem';
+import {Button} from '@mui/material';
 
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Box, Container, Grid} from '@mui/material';
+const drawerWidth = 300;
 
-
-const mdTheme = createTheme();
-
-const Dashboard = () => {
+/**
+ * @return {void}
+ */
+export default function Dashboard() {
   return (
-    <div>
-      Hello from dashboard
-      <ThemeProvider theme={mdTheme}>
-        <Box sx={{display: 'flex'}}>
-          <CreateItem />
-          <Box
-            component="main"
-            sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'light'? theme.palette.grey[100] :
-                  theme.palette.grey[900],
-              flexGrow: 1,
-              height: '100vh',
-              overflow: 'auto',
-            }}
-          >
-            <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
-              <Grid container spacing={3}>
-                {/* Recent Orders */}
-                <Grid item xs={12}>
-                  <Items />
-                </Grid>
-              </Grid>
-            </Container>
-          </Box>
+    <Box sx={{display: 'flex'}}>
+      <CssBaseline />
+      <AppBar
+        position='fixed'
+        sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
+      >
+        <Toolbar>
+          <Typography variant='h6' noWrap component='div'>
+            Clipped drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant='permanent'
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+      >
+        <Toolbar />
+        <Box sx={{overflow: 'auto'}}>
+          <List>
+            <ListItem disablePadding>
+              <Button variant="contained">Create New Product</Button>
+            </ListItem>
+          </List>
         </Box>
-      </ThemeProvider>
-    </div>
+      </Drawer>
+      <Box component='main' sx={{flexGrow: 1, p: 3}}>
+        <Toolbar />
+        <Items/>
+      </Box>
+    </Box>
   );
-};
-
-export default Dashboard;
+}
