@@ -14,6 +14,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {Grid} from '@mui/material';
 
+import './../css/App.css';
 
 const getItems = (setItems) => {
   const item = localStorage.getItem('user');
@@ -55,12 +56,11 @@ const Items = () => {
   }, []);
 
   return (
-      <Grid container>
-        {items.length > 0 &&
+    <Grid container spacing={2}>
+      {items.length > 0 &&
             items.map((row) => (
               <Grid item key={row.itemid} xs={12} sm={6} md={4}>
-                {row.data.name}
-                <Card sx={{maxWidth: 300}}>
+                <Card>
                   <CardHeader
                     avatar={
                       <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">R
@@ -76,7 +76,6 @@ const Items = () => {
                   />
                   <CardMedia
                     component="img"
-                    height="194"
                     image="/static/images/cards/paella.jpg"
                     alt="Paella dish"
                   />
