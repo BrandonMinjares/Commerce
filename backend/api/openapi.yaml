@@ -201,17 +201,33 @@ components:
         fileImage:
           type: string
           format: binary
-        name:
+        product:
           type: string
+        category:
+          type: string
+          enum:
+            - Vehicles
+            - Property
+            - Apparel 
+            - Electronics
+            - Computers
+            - Instruments
+            - Toys & Games
+            - Sporting Goods
+            - Home Goods
         price:
+          type: string
+        quantity:
           type: string
         condition:
           type: string
-          enum: [like new, great, good, poor]
-      required:
-        - name
-        - price
-        - condition
+          enum: 
+            - Like New
+            - Very Good
+            - Good
+            - Acceptable
+        description:
+          type: string
 
     ItemsArray:
       type: array

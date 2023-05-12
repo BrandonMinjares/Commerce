@@ -11,6 +11,7 @@ const pool = new Pool({
 
 exports.uploadItem = async (req, res) => {
   const body = req.body;
+  console.log(req.body);
   console.log(req.files[0]);
   // console.log(body);
 
@@ -22,6 +23,7 @@ exports.uploadItem = async (req, res) => {
   body.fileImage = image;
 
 
+  console.log(req);
   const insert = `Insert into item(userId, data) VALUES ($1, $2) ` +
     'RETURNING itemID';
   const insertQuery = {

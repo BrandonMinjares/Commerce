@@ -1,25 +1,50 @@
 import {Box, Button, FormControl, MenuItem,
   TextField, TextareaAutosize} from '@mui/material';
-import React from 'react';
+import React, {useState} from 'react';
 
 
 /**
  * @return {void}
  */
 export default function CreateItem() {
+  const [category, setCategory] = useState('');
+  const [condition, setCondition] = useState('');
+
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
+  };
+
+  const handleConditionChange = (event) => {
+    setCondition(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const user = {
-      email: data.get('email'),
-      password: data.get('password'),
+
+    const item = localStorage.getItem('user');
+    if (!item) {
+      return;
+    }
+    const user = JSON.parse(item);
+    const bearerToken = user ? user.accessToken : '';
+    const form = new FormData(event.currentTarget);
+    const data = {
+      fileImage: form.get('file'),
+      product: form.get('product'),
+      category: form.get('category'),
+      price: form.get('price'),
+      quantity: form.get('quantity'),
+      condition: form.get('condition'),
+      description: form.get('description'),
     };
-    fetch('http://localhost:3010/v0/login', {
+    console.log(data);
+    fetch('http://localhost:3010/v0/item', {
       method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      body: JSON.stringify(data),
+      headers: new Headers({
+        'Authorization': `Bearer ${bearerToken}`,
+        'Content-Type': 'multipart/form-data',
+      }),
     })
       .then((res) => {
         if (!res.ok) throw res;
@@ -37,6 +62,8 @@ export default function CreateItem() {
         <TextField
           type="file"
           inputProps={{accept: 'image/*'}}
+          name='file'
+          id="file"
         />
         <TextField
           margin="normal"
@@ -44,7 +71,7 @@ export default function CreateItem() {
           fullWidth
           id="product"
           label="Product Name"
-          name="name"
+          name="product"
           placeholder="Enter Name"
           autoFocus
           aria-label='Product Name'
@@ -57,6 +84,8 @@ export default function CreateItem() {
           id="category"
           label="Category"
           name="category"
+          value={category}
+          onChange={handleCategoryChange}
           placeholder="Select category"
           autoFocus
           aria-label='Category'
@@ -91,15 +120,40 @@ export default function CreateItem() {
           name="quantity"
           autoFocus
           aria-label='Quantity'
-          type='number'
           min={0}
 
         />
+
+        <TextField
+          select
+          margin="normal"
+          required
+          fullWidth
+          id="condition"
+          label="Condition"
+          name="condition"
+          value={condition}
+          onChange={handleConditionChange}
+          placeholder="Select condition"
+          autoFocus
+          aria-label='Condition'
+        >
+          <MenuItem value={'Like New'}>Like New</MenuItem>
+          <MenuItem value={'Very Good'}>Very Good</MenuItem>
+          <MenuItem value={'Good'}>Good</MenuItem>
+          <MenuItem value={'Acceptable'}>Acceptable</MenuItem>
+        </TextField>
+
+
         <TextareaAutosize
-          aria-label="minimum height"
+          aria-label="Description"
           minRows={10}
+          margin="normal"
           label="Description"
           placeholder="Enter Product Description"
+          name='description'
+          id="description"
+
         />
         <Button
           type="submit"
