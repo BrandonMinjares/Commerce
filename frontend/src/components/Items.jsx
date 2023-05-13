@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 // import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
@@ -39,10 +38,12 @@ const getItems = (setItems) => {
     .then((res) => {
       for (let i = 0; i < res.length; i++) {
         if (res[i].data.fileImage) {
-          const buffer = (res[i].data.fileImage.buffer.data);
-          const mimetype = (res[i].data.fileImage.buffer.mimetype);
-          const blob = new Blob([buffer], {type: mimetype});
+          const bufferData = (res[i].data.fileImage.buffer.data);
+          const mimetype = (res[i].data.fileImage.mimetype);
+          console.log(mimetype);
+          const blob = new Blob([bufferData], {type: mimetype});
           const imageUrl = URL.createObjectURL(blob);
+          console.log(imageUrl);
           res[i].data.imageUrl = imageUrl;
         }
       }
@@ -71,11 +72,8 @@ const Items = () => {
             items.map((row) => (
               <Grid item key={row.itemid} xs={12} sm={6} md={4}>
                 <Card>
-                  <CardMedia
-                    component="img"
-                    src={row.data.imageUrl}
-                    alt="Product Image"
-                  />
+                <img src={row.data.imageUrl}
+                alt="cute puppy" />
                   <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites">
                       <FavoriteIcon />
