@@ -39,7 +39,7 @@ const getItems = (setItems) => {
     })
     .then((res) => {
       for (let i = 0; i < res.length; i++) {
-        if (res[i].data.fileImage.buffer.data) {
+        if (res[i].data.fileImage) {
           const buffer = (res[i].data.fileImage.buffer.data);
           const mimetype = (res[i].data.fileImage.buffer.mimetype);
           const blob = new Blob([buffer], {type: mimetype});

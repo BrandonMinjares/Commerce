@@ -21,6 +21,7 @@ export default function CreateItem() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+
     const item = localStorage.getItem('user');
     if (!item) {
       return;
@@ -28,22 +29,11 @@ export default function CreateItem() {
     const user = JSON.parse(item);
     const bearerToken = user ? user.accessToken : '';
     const form = new FormData(event.currentTarget);
-    const data = {
-      fileImage: form.get('file'),
-      product: form.get('product'),
-      category: form.get('category'),
-      price: form.get('price'),
-      quantity: form.get('quantity'),
-      condition: form.get('condition'),
-      description: form.get('description'),
-    };
-    console.log(data);
     fetch('http://localhost:3010/v0/item', {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: form,
       headers: new Headers({
         'Authorization': `Bearer ${bearerToken}`,
-        'Content-Type': 'multipart/form-data',
       }),
     })
       .then((res) => {

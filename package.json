@@ -19,6 +19,7 @@
     "postinstall": "(npm run install-backend) && (npm run install-frontend) && (npm run install-e2e)"
   },
   "dependencies": {
-    "@mui/joy": "^5.0.0-alpha.37"
+    "@mui/joy": "^5.0.0-alpha.37",
+    "cors": "^2.8.5"
   }
 }
