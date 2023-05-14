@@ -1,18 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 // import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 // import Typography from '@mui/material/Typography';
-import {red} from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {Grid} from '@mui/material';
+import {Button, Dialog, DialogActions, DialogContent,
+  DialogContentText, DialogTitle, Grid} from '@mui/material';
 
 import './../css/App.css';
+import {Link} from 'react-router-dom';
+// import {useNavigate} from 'react-router-dom';
 
 const getItems = (setItems) => {
   const item = localStorage.getItem('user');
@@ -59,7 +55,17 @@ const getItems = (setItems) => {
 
 
 const Items = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [items, setItems] = useState([]);
+  //   const navigate = useNavigate();
 
   useEffect(() => {
     getItems(setItems);
@@ -71,25 +77,35 @@ const Items = () => {
       {items.length > 0 &&
             items.map((row) => (
               <Grid item key={row.itemid} xs={12} sm={6} md={4}>
-                <Card>
-                <img src={row.data.imageUrl}
-                alt="cute puppy" />
-                  <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton aria-label="share">
-                      <ShareIcon />
-                    </IconButton>
-                  </CardActions>
-                  <CardHeader
-                    title={row.data.product}
-                    avatar={
-                      <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">R
-                      </Avatar>
-                    }
-                  />
-                </Card>
+                <Link to={`product/${row.itemid}`}>
+                  <Card>
+                    <img src={row.data.imageUrl}
+                      onClick={handleClickOpen}
+                      alt="cute puppy" />
+                  </Card>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="responsive-dialog-title"
+                  >
+                    <DialogTitle id="responsive-dialog-title">
+                      {'Use Googles location service?'}
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText>
+            location data to Google, even when no apps are running.
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button autoFocus onClick={handleClose}>
+            Disagree
+                      </Button>
+                      <Button onClick={handleClose} autoFocus>
+            Agree
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </Link>
               </Grid>
 
             ))}

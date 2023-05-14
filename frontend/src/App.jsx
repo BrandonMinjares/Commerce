@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, HashRouter, Routes} from 'react-router-dom';
+import {Route, Routes, BrowserRouter} from 'react-router-dom';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -15,7 +15,7 @@ import Item from './components/Item';
  */
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
@@ -25,7 +25,7 @@ function App() {
         <Route path="/product/:id" element={<Item/>}/>
         <Route path="/" element={<Dashboard/>}/>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
