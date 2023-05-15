@@ -19,7 +19,6 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
-
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/product/create" element={<CreateItem/>}/>
         <Route path="/product/:id" element={<Item/>}/>

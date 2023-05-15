@@ -124,6 +124,14 @@ const Items = () => {
                     </Grid>
                   </CardActionArea>
                 </Card>
+                <Grid item xs={12} padding={0.5}>
+                  <Button autoFocus fullWidth
+                    sx={{backgroundColor: 'black', color: 'white',
+                      textAlign: 'center'}}
+                  >
+                            + Add to Cart
+                  </Button>
+                </Grid>
               </Grid>
             ))}
         <Dialog
