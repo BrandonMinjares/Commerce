@@ -52,7 +52,6 @@ const Item = () => {
 
   return (
     <div>
-      test
       {item.length > 0 && item.map((row) => (
         <Grid item key={row.itemID} xs={12} sm={6} md={4}>
           hello

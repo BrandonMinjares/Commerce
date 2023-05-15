@@ -4,15 +4,13 @@ import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import ListItem from '@mui/material/ListItem';
 import Items from './Items';
-import {Button} from '@mui/material';
+import {Button, MenuItem, TextField} from '@mui/material';
 
 import {useNavigate} from 'react-router-dom';
 
-const drawerWidth = 300;
+const drawerWidth = 325;
 
 /**
  * @return {void}
@@ -51,13 +49,26 @@ export default function Dashboard() {
         }}
       >
         <Toolbar />
-        <Box sx={{overflow: 'auto'}}>
-          <List>
-            <ListItem disablePadding>
-              <Button variant="contained"
-                onClick={navigateToCreateItem}>Create New Product</Button>
-            </ListItem>
-          </List>
+        <Box sx={{textAlign: 'center', padding: 2}}>
+          <Button variant="contained" fullWidth sx={{padding: 1.5}}
+            onClick={navigateToCreateItem}>Create New Product
+          </Button>
+          <TextField
+            select
+            margin="normal"
+            required
+            fullWidth
+            id="condition"
+            name="condition"
+            autoFocus
+            aria-label='Condition'
+            value={'Newest'}
+          >
+            <MenuItem value={'Newest'}>Newest</MenuItem>
+            <MenuItem value={'Oldest'}>Oldest</MenuItem>
+            <MenuItem value={'Price High'}>Price High</MenuItem>
+            <MenuItem value={'Price Low'}>Price Low</MenuItem>
+          </TextField>
         </Box>
       </Drawer>
       <Box component='main' sx={{flexGrow: 1, p: 3}}>
