@@ -62,3 +62,17 @@ exports.getItem = async (req, res) => {
   console.log(rows[0]);
   return res.status(200).json(rows);
 };
+
+exports.addToCart = async (req, res) => {
+  console.log(req.body);
+  const select = 'UPDATE person ' +
+  `SET shoppingCart = array_append(shoppingCart, $1) ` +
+  'WHERE userid = $2 ';
+  const selectQuery = {
+    text: select,
+    values: [req.body.id, req.user.userid],
+  };
+  const {rows} = await pool.query(selectQuery);
+  console.log(rows);
+  return res.status(200).json('good');
+};

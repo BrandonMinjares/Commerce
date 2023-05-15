@@ -148,6 +148,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+  /insertItem:
+    post:
+      security:
+        - bearerAuth: []
+      description: Upload Item
+      requestBody:
+        description: Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemID'
+      responses:
+        200:
+          description: Item Response
+          content:
+            application/json:
+              schema:
+                type: string
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
 
 components:
   schemas:
@@ -219,6 +246,12 @@ components:
       type: string
       properties:
         firstname:
+          type: string
+
+    ItemID:
+      type: object
+      properties:
+        id:
           type: string
 
     Item:
