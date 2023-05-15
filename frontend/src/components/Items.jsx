@@ -124,26 +124,37 @@ const Items = () => {
                       <DialogContent>
                         <img
                           style={{maxWidth: '100%',
-                          maxHeight: 'calc(100vh - 64px)'}}
+                            maxHeight: 'calc(100vh - 64px)'}}
                           src={truck}
                           alt='truck'
-                          />
+                        />
                       </DialogContent>
                     </Grid>
                     <Grid item xs={4}>
                       <DialogContent>
                         <DialogContentText>
+                          <h3>{row.data.product}</h3>
+                        </DialogContentText>
+                        <DialogContentText>
+                          <h4>${row.data.price}</h4>
+                        </DialogContentText>
+                        <DialogContentText>
+                          {row.data.category}
+                        </DialogContentText>
+                        <DialogContentText>
                           {row.data.description}
                         </DialogContentText>
+                        <DialogActions>
+                          <Button autoFocus onClick={handleClose}>
+                            Message Seller
+                          </Button>
+                        </DialogActions>
                       </DialogContent>
                     </Grid>
                   </Grid>
                   <DialogActions>
                     <Button autoFocus onClick={handleClose}>
-            Disagree
-                    </Button>
-                    <Button onClick={handleClose} autoFocus>
-            Agree
+                      Add to Cart
                     </Button>
                   </DialogActions>
                 </Dialog>
