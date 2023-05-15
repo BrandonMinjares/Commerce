@@ -122,13 +122,13 @@ paths:
                 $ref: '#/components/schemas/Error'
 
 
-  /item/{itemID}:
+  /item/{id}:
     get:
       security:
         - bearerAuth: []
       parameters:
         - in: path
-          name: itemID
+          name: id
           required: true
           description: Item ID
           schema:
@@ -140,7 +140,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/ItemsArray'
         default:
           description: Unexpected Error
           content:

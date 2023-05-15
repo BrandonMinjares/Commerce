@@ -5,7 +5,7 @@ import {useParams} from 'react-router';
 const Item = () => {
   const [item, setItem] = useState([]);
   const {id} = useParams();
-
+  console.log(id);
   useEffect(() => {
     const item = localStorage.getItem('user');
     if (!item) {
@@ -53,11 +53,12 @@ const Item = () => {
   return (
     <div>
       test
-      {item &&
-          <Grid item key={item.itemID} xs={12} sm={6} md={4}>
-            hello
-            {item.data.description}
-          </Grid>
+      {item.length > 0 && item.map((row) => (
+        <Grid item key={row.itemID} xs={12} sm={6} md={4}>
+          hello
+          {row.data.description}
+        </Grid>
+      ))
       }
     </div>
   );

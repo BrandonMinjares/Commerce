@@ -60,5 +60,5 @@ exports.getItem = async (req, res) => {
   };
   const {rows} = await pool.query(selectQuery);
   console.log(rows[0]);
-  return res.status(200).json(rows[0]);
+  return res.status(200).json(rows);
 };
