@@ -52,12 +52,13 @@ exports.getItems = async (req, res) => {
 exports.getItem = async (req, res) => {
   console.log(req.params);
   const id = req.params.itemID;
+  console.log(id);
   const select = 'Select * from item where itemID = $1';
   const selectQuery = {
     text: select,
     values: [id],
   };
   const {rows} = await pool.query(selectQuery);
-  console.log(rows);
+  console.log(rows[0]);
   return res.status(200).json(rows[0]);
 };

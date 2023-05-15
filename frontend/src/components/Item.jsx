@@ -1,10 +1,10 @@
-import {Card, Grid} from '@mui/material';
+import {Grid} from '@mui/material';
 import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router';
 
-const Item = (props) => {
+const Item = () => {
   const [item, setItem] = useState([]);
-  console.log(props);
-  const itemID = props.id;
+  const {id} = useParams();
 
   useEffect(() => {
     const item = localStorage.getItem('user');
@@ -14,7 +14,7 @@ const Item = (props) => {
     const user = JSON.parse(item);
     const bearerToken = user ? user.accessToken : '';
 
-    fetch(`http://localhost:3010/v0/item/${itemID}`, {
+    fetch(`http://localhost:3010/v0/item/${id}`, {
       method: 'GET',
       headers: new Headers({
         'Authorization': `Bearer ${bearerToken}`,
@@ -48,21 +48,17 @@ const Item = (props) => {
         // setMail([]);
         // setError(`${error.status} - ${error.statusText}`);
       });
-  }, [itemID]);
+  }, [id]);
 
   return (
     <div>
-      {item.length > 0 &&
-            item.map((row) => (
-              <Grid item key={row.itemid} xs={12} sm={6} md={4}>
-                hello
-                <Card>
-                  <img src={row.data.imageUrl} alt="cute puppy" />
-                  {row.data.description}
-                </Card>
-              </Grid>
-
-            ))}
+      test
+      {item &&
+          <Grid item key={item.itemID} xs={12} sm={6} md={4}>
+            hello
+            {item.data.description}
+          </Grid>
+      }
     </div>
   );
 };
