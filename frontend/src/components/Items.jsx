@@ -3,8 +3,8 @@ import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
 // import Typography from '@mui/material/Typography';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {Avatar, Button, CardActions, CardContent, CardHeader,
-  CardMedia, Collapse, Dialog, DialogActions, DialogContent,
+import {Avatar, Button, CardActionArea, CardContent, CardHeader,
+  CardMedia, Dialog, DialogActions, DialogContent,
   DialogContentText, DialogTitle, Grid, Typography} from '@mui/material';
 
 import './../css/App.css';
@@ -88,34 +88,41 @@ const Items = () => {
         {items.length > 0 &&
             items.map((row, index) => (
               <Grid item key={row.itemid} xs={12} sm={6} md={4}>
-                <Card onClick={() =>
-                  handleClickOpen(row)}
-                >
-                  <CardMedia
-                    component="img"
-                    src={row.data.imageUrl}
-                    alt="Paella dish"
-                  />
-                  <CardHeader
-                    avatar={
-                      <Avatar sx={{bgcolor: 'red'}} aria-label="recipe">R
-                      </Avatar>
-                    }
-                    title={row.itemid}
-                    subheader="September 14, 2016"
-                  />
-                  <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                      {row.data.description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions disableSpacing>
-                  </CardActions>
-                  <Collapse timeout="auto" unmountOnExit>
-                    <CardContent>
-                      <Typography paragraph>Method:</Typography>
-                    </CardContent>
-                  </Collapse>
+                <Card sx={{borderRadius: '10px'}}>
+                  <CardActionArea onClick={() =>
+                    handleClickOpen(row)}>
+                    <CardMedia
+                      component="img"
+                      src={truck}
+                      alt="Paella dish"
+                    />
+                    <Grid container>
+                      <Grid item xs={8}>
+                        <CardContent>
+                          <Typography variant="body2"
+                            color="text.secondary" fontSize={'18px'}
+                            fontWeight={'bold'}
+                          >
+                          ${row.data.price}
+                          </Typography>
+                        </CardContent>
+                        <CardContent>
+                          <Typography variant="body2" color="text.secondary"
+                            fontSize={'18px'}>
+                            {row.data.product}
+                          </Typography>
+                        </CardContent>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <CardHeader
+                          avatar={
+                            <Avatar sx={{bgcolor: 'red'}} aria-label="recipe">R
+                            </Avatar>
+                          }
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardActionArea>
                 </Card>
               </Grid>
             ))}
