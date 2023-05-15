@@ -3,11 +3,10 @@ import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
 // import Typography from '@mui/material/Typography';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {Button, Dialog, DialogActions, DialogContent,
-  DialogContentText, DialogTitle, Grid} from '@mui/material';
+import {Dialog, Grid} from '@mui/material';
 
 import './../css/App.css';
-import {Link} from 'react-router-dom';
+import Item from './Item';
 // import {useNavigate} from 'react-router-dom';
 
 const getItems = (setItems) => {
@@ -73,43 +72,29 @@ const Items = () => {
 
 
   return (
-    <Grid container spacing={2}>
-      {items.length > 0 &&
+    <div>
+      <Grid container spacing={2}>
+        {items.length > 0 &&
             items.map((row) => (
               <Grid item key={row.itemid} xs={12} sm={6} md={4}>
-                <Link to={`product/${row.itemid}`}>
-                  <Card>
-                    <img src={row.data.imageUrl}
-                      onClick={handleClickOpen}
-                      alt="cute puppy" />
-                  </Card>
-                  <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="responsive-dialog-title"
-                  >
-                    <DialogTitle id="responsive-dialog-title">
-                      {'Use Googles location service?'}
-                    </DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>
-            location data to Google, even when no apps are running.
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button autoFocus onClick={handleClose}>
-            Disagree
-                      </Button>
-                      <Button onClick={handleClose} autoFocus>
-            Agree
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                </Link>
+                <Card
+                >
+                  <img src={row.data.imageUrl}
+                    onClick={handleClickOpen}
+                    alt="cute puppy" />
+                </Card>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="responsive-dialog-title"
+                >
+                  <Item id = {row.itemid}/>
+                </Dialog>
               </Grid>
 
             ))}
-    </Grid>
+      </Grid>
+    </div>
   );
 };
 

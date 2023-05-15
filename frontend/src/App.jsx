@@ -23,7 +23,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/product/create" element={<CreateItem/>}/>
         <Route path="/product/:id" element={<Item/>}/>
-        <Route path="/" element={<Dashboard/>}/>
+        <Route path="/" element={<Dashboard/>}>
+          <Route path="/product/:id" element={<Item/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

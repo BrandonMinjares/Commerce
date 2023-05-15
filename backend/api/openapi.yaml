@@ -103,7 +103,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
     get:
       security:
         - bearerAuth: []
@@ -115,6 +114,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemsArray'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /item/{itemID}:
+    get:
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: itemID
+          required: true
+          description: Item ID
+          schema:
+            type: string
+      description: Get Item
+      responses:
+        200:
+          description: Item Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
         default:
           description: Unexpected Error
           content:
