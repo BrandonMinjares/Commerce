@@ -64,13 +64,14 @@ exports.getItem = async (req, res) => {
 };
 
 exports.addToCart = async (req, res) => {
-  console.log(req.body);
+  console.log('test');
+  console.log(req.params.id);
   const select = 'UPDATE person ' +
   `SET shoppingCart = array_append(shoppingCart, $1) ` +
   'WHERE userid = $2 ';
   const selectQuery = {
     text: select,
-    values: [req.body.id, req.user.userid],
+    values: [req.params.id, req.user.userid],
   };
   const {rows} = await pool.query(selectQuery);
   console.log(rows);

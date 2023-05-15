@@ -148,18 +148,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /insertItem:
+  /insertItem/{id}:
     post:
       security:
         - bearerAuth: []
       description: Upload Item
-      requestBody:
-        description: Request Body
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ItemID'
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: item ID
+          schema:
+            type: string
       responses:
         200:
           description: Item Response

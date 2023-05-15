@@ -55,6 +55,36 @@ const getItems = (setItems) => {
     });
 };
 
+const addToCart = (id) => {
+  const item = localStorage.getItem('user');
+  if (!item) {
+    return;
+  }
+  const user = JSON.parse(item);
+  const bearerToken = user ? user.accessToken : '';
+  fetch(`http://localhost:3010/v0/insertItem/${id}`, {
+    method: 'POST',
+    headers: new Headers({
+      'Authorization': `Bearer ${bearerToken}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.log('notok');
+        throw response;
+      }
+      return response.json();
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+      // setMail([]);
+      // setError(`${error.status} - ${error.statusText}`);
+    });
+};
 
 const Items = () => {
   const [open, setOpen] = React.useState(false);
@@ -126,6 +156,7 @@ const Items = () => {
                 </Card>
                 <Grid item xs={12} padding={0.5}>
                   <Button autoFocus fullWidth
+                    onClick={() => addToCart(row.itemid)}
                     sx={{backgroundColor: 'black', color: 'white',
                       textAlign: 'center'}}
                   >
