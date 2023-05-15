@@ -3,10 +3,11 @@ import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
 // import Typography from '@mui/material/Typography';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {Dialog, Grid} from '@mui/material';
+import {Avatar, Button, CardActions, CardContent, CardHeader,
+  CardMedia, Collapse, Dialog, DialogActions, DialogContent,
+  DialogContentText, DialogTitle, Grid, Typography} from '@mui/material';
 
 import './../css/App.css';
-import Item from './Item';
 // import {useNavigate} from 'react-router-dom';
 
 const getItems = (setItems) => {
@@ -56,12 +57,14 @@ const getItems = (setItems) => {
 const Items = () => {
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (id) => {
     setOpen(true);
+    window.history.pushState(null, '', `product/${id}`); // Change the URL here
   };
 
   const handleClose = () => {
     setOpen(false);
+    window.history.back();
   };
   const [items, setItems] = useState([]);
   //   const navigate = useNavigate();
@@ -77,18 +80,67 @@ const Items = () => {
         {items.length > 0 &&
             items.map((row) => (
               <Grid item key={row.itemid} xs={12} sm={6} md={4}>
-                <Card
-                >
-                  <img src={row.data.imageUrl}
-                    onClick={handleClickOpen}
-                    alt="cute puppy" />
+                <Card onClick={() => handleClickOpen(row.itemid)}>
+                  <CardHeader
+                    avatar={
+                      <Avatar sx={{bgcolor: 'red'}} aria-label="recipe">R
+                      </Avatar>
+                    }
+                    title={row.data.name}
+                    subheader="September 14, 2016"
+                  />
+                  <CardMedia
+                    component="img"
+                    src={row.data.imageUrl}
+                    alt="Paella dish"
+                  />
+                  <CardContent>
+                    <Typography variant="body2" color="text.secondary">
+                      {row.data.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions disableSpacing>
+                  </CardActions>
+                  <Collapse timeout="auto" unmountOnExit>
+                    <CardContent>
+                      <Typography paragraph>Method:</Typography>
+                      <Typography paragraph>
+            aside for 10 minutes.
+                      </Typography>
+                      <Typography paragraph>
+            Heat oil in a (14- to 16-inch) paella pan or a large, deep sk
+                      </Typography>
+                      <Typography paragraph>
+            Add rice and stir very gently to distribute. Top
+                      </Typography>
+                      <Typography>
+            Set aside off of the heat to let
+                      </Typography>
+                    </CardContent>
+                  </Collapse>
                 </Card>
                 <Dialog
                   open={open}
                   onClose={handleClose}
                   aria-labelledby="responsive-dialog-title"
                 >
-                  <Item id = {row.itemid}/>
+                  <DialogTitle id="responsive-dialog-title">
+                    {'Use Googles location service?'}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+            Leting anonymous
+            location data to Google, even when no apps are running.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button autoFocus onClick={handleClose}>
+            Disagree
+                    </Button>
+                    <Button onClick={handleClose} autoFocus>
+            Agree
+                    </Button>
+                  </DialogActions>
                 </Dialog>
               </Grid>
 
