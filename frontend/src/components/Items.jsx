@@ -87,7 +87,7 @@ const Items = () => {
       <Grid container spacing={2}>
         {items.length > 0 &&
             items.map((row, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4}>
+              <Grid item key={row.itemid} xs={12} sm={6} md={4}>
                 <Card onClick={() =>
                   handleClickOpen(row)}
                 >
@@ -126,8 +126,8 @@ const Items = () => {
           maxWidth='md'
           fullWidth
         >
-          <DialogTitle id="responsive-dialog-title">
-            {'Use Googles location service?'}
+          <DialogTitle id="responsive-dialog-title" textAlign={'center'}>
+            {'Marketplace'}
           </DialogTitle>
 
           <Grid container>
@@ -144,17 +144,20 @@ const Items = () => {
             </Grid>
             <Grid item xs={4}>
               <DialogContent>
-                <DialogContentText>
-              {item.product}
+                <DialogContentText sx={{fontSize: '22px'}}>
+                  {item.product}
                 </DialogContentText>
                 <DialogContentText>
-                {item.userID}
+                  Category: {item.category}
                 </DialogContentText>
                 <DialogContentText>
-                  f
+                  Price: ${item.price}
                 </DialogContentText>
                 <DialogContentText>
-                  f
+                  Condition: {item.condition}
+                </DialogContentText>
+                <DialogContentText>
+                  {item.description}
                 </DialogContentText>
                 <DialogActions>
                   <Button autoFocus onClick={handleClose}>
