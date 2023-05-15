@@ -58,8 +58,15 @@ const getItems = (setItems) => {
 
 const Items = () => {
   const [open, setOpen] = React.useState(false);
+  const [items, setItems] = useState([]);
+  const [item, setItem] = useState({});
 
-  const handleClickOpen = (id) => {
+  const handleClickOpen = (row) => {
+    const id = row.itemid;
+    console.log(row);
+    row.data.itemID = row.itemid;
+    row.data.userID = row.userid;
+    setItem(row.data);
     setOpen(true);
     window.history.pushState(null, '', `product/${id}`); // Change the URL here
   };
@@ -68,7 +75,6 @@ const Items = () => {
     setOpen(false);
     window.history.back();
   };
-  const [items, setItems] = useState([]);
   //   const navigate = useNavigate();
 
   useEffect(() => {
@@ -80,9 +86,11 @@ const Items = () => {
     <div>
       <Grid container spacing={2}>
         {items.length > 0 &&
-            items.map((row) => (
-              <Grid item key={row.itemid} xs={12} sm={6} md={4}>
-                <Card onClick={() => handleClickOpen(row.itemid)}>
+            items.map((row, index) => (
+              <Grid item key={index} xs={12} sm={6} md={4}>
+                <Card onClick={() =>
+                  handleClickOpen(row)}
+                >
                   <CardMedia
                     component="img"
                     src={row.data.imageUrl}
@@ -93,7 +101,7 @@ const Items = () => {
                       <Avatar sx={{bgcolor: 'red'}} aria-label="recipe">R
                       </Avatar>
                     }
-                    title={row.data.name}
+                    title={row.itemid}
                     subheader="September 14, 2016"
                   />
                   <CardContent>
@@ -109,58 +117,59 @@ const Items = () => {
                     </CardContent>
                   </Collapse>
                 </Card>
-                <Dialog
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="responsive-dialog-title"
-                  maxWidth='md'
-                  fullWidth
-                >
-                  <DialogTitle id="responsive-dialog-title">
-                    {'Use Googles location service?'}
-                  </DialogTitle>
-                  <Grid container>
-                    <Grid item xs={8}>
-                      <DialogContent>
-                        <img
-                          style={{maxWidth: '100%',
-                            maxHeight: 'calc(100vh - 64px)'}}
-                          src={truck}
-                          alt='truck'
-                        />
-                      </DialogContent>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <DialogContent>
-                        <DialogContentText>
-                          <h3>{row.data.product}</h3>
-                        </DialogContentText>
-                        <DialogContentText>
-                          <h4>${row.data.price}</h4>
-                        </DialogContentText>
-                        <DialogContentText>
-                          {row.data.category}
-                        </DialogContentText>
-                        <DialogContentText>
-                          {row.data.description}
-                        </DialogContentText>
-                        <DialogActions>
-                          <Button autoFocus onClick={handleClose}>
-                            Message Seller
-                          </Button>
-                        </DialogActions>
-                      </DialogContent>
-                    </Grid>
-                  </Grid>
-                  <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                      Add to Cart
-                    </Button>
-                  </DialogActions>
-                </Dialog>
               </Grid>
-
             ))}
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+          maxWidth='md'
+          fullWidth
+        >
+          <DialogTitle id="responsive-dialog-title">
+            {'Use Googles location service?'}
+          </DialogTitle>
+
+          <Grid container>
+            <Grid item xs={8}>
+
+              <DialogContent>
+                <img
+                  style={{maxWidth: '100%',
+                    maxHeight: 'calc(100vh - 64px)'}}
+                  src={truck}
+                  alt='truck'
+                />
+              </DialogContent>
+            </Grid>
+            <Grid item xs={4}>
+              <DialogContent>
+                <DialogContentText>
+              {item.product}
+                </DialogContentText>
+                <DialogContentText>
+                {item.userID}
+                </DialogContentText>
+                <DialogContentText>
+                  f
+                </DialogContentText>
+                <DialogContentText>
+                  f
+                </DialogContentText>
+                <DialogActions>
+                  <Button autoFocus onClick={handleClose}>
+                            Message Seller
+                  </Button>
+                </DialogActions>
+              </DialogContent>
+            </Grid>
+          </Grid>
+          <DialogActions>
+            <Button autoFocus onClick={handleClose}>
+                      Add to Cart
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
     </div>
   );
