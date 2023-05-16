@@ -7,6 +7,7 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import CreateItem from './components/CreateItem';
 import Item from './components/Item';
+import Checkout from './components/Checkout';
 
 /**
  * Simple component with no state.
@@ -22,6 +23,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/product/create" element={<CreateItem/>}/>
         <Route path="/product/:id" element={<Item/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
+
         <Route path="/" element={<Dashboard/>}>
           <Route path="/product/:id" element={<Item/>}/>
         </Route>

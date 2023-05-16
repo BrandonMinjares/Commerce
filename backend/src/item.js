@@ -50,9 +50,10 @@ exports.getItems = async (req, res) => {
 
 
 exports.getItem = async (req, res) => {
-  console.log(req.params);
+  // console.log(req.params);
+  console.log('test');
   const id = req.params.itemID;
-  console.log(id);
+  // console.log(id);
   const select = 'Select * from item where itemID = $1';
   const selectQuery = {
     text: select,
@@ -61,6 +62,34 @@ exports.getItem = async (req, res) => {
   const {rows} = await pool.query(selectQuery);
   console.log(rows[0]);
   return res.status(200).json(rows);
+};
+
+exports.getAllUsersItems = async (req, res) => {
+  const select = `SELECT shoppingcart from Person `+
+  `where userid = $1`;
+
+  const selectQuery = {
+    text: select,
+    values: [req.user.userid],
+  };
+  const {rows} = await pool.query(selectQuery);
+  const itemIdArray = rows[0].shoppingcart;
+  const itemsArray = [];
+
+  for (const itemID of itemIdArray) {
+    /*
+    const selectItem = 'Select data from item where itemID = $1';
+    const selectItemQuery = {
+      text: selectItem,
+      values: [itemID],
+    };
+    const {rows} = await pool.query(selectItemQuery);
+    itemsArray.push(rows[0]);
+    */
+   console.log(itemID);
+  }
+
+  return res.status(200).json(itemsArray);
 };
 
 exports.addToCart = async (req, res) => {
