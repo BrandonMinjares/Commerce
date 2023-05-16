@@ -50,6 +50,7 @@ const checkout = () => {
  * @return {void}
  */
 export default function Dashboard() {
+  const [sortingType, setSortingType] = React.useState('Newest');
   const navigate = useNavigate();
 
   const navigateToCreateItem = () => {
@@ -100,12 +101,20 @@ export default function Dashboard() {
             name="condition"
             autoFocus
             aria-label='Condition'
-            value={'Newest'}
+            value={sortingType}
           >
-            <MenuItem value={'Newest'}>Newest</MenuItem>
-            <MenuItem value={'Oldest'}>Oldest</MenuItem>
-            <MenuItem value={'Price High'}>Price High</MenuItem>
-            <MenuItem value={'Price Low'}>Price Low</MenuItem>
+            <MenuItem
+              onClick={() => setSortingType('Newest')}
+              value={'Newest'}>Newest</MenuItem>
+            <MenuItem
+              onClick={() => setSortingType('Oldest')}
+              value={'Oldest'}>Oldest</MenuItem>
+            <MenuItem
+              onClick={() => setSortingType('Price High')}
+              value={'Price High'}>Price High</MenuItem>
+            <MenuItem
+              onClick={() => setSortingType('Price Low')}
+              value={'Price Low'}>Price Low</MenuItem>
           </TextField>
         </Box>
       </Drawer>
