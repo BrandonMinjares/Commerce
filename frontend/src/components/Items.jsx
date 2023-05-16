@@ -60,6 +60,7 @@ const addToCart = (id) => {
   if (!item) {
     return;
   }
+
   const user = JSON.parse(item);
   const bearerToken = user ? user.accessToken : '';
   fetch(`http://localhost:3010/v0/insertItem/${id}`, {

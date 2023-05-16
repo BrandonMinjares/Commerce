@@ -5,7 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 const path = require('path');
 const OpenApiValidator = require('express-openapi-validator');
-
+// const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 // Routes
 const dummy = require('./dummy');
@@ -40,6 +40,7 @@ app.post('/v0/register', auth.register);
 app.post('/v0/item', auth.check, item.uploadItem);
 app.get('/v0/item', auth.check, item.getItems);
 app.get('/v0/item/:itemID', auth.check, item.getItem);
+app.get('/v0/checkout', auth.check, item.checkout);
 
 app.post('/v0/insertItem/:id', auth.check, item.addToCart);
 

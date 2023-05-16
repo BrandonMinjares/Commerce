@@ -1,5 +1,5 @@
 const {Pool} = require('pg');
-
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 const pool = new Pool({
   host: 'localhost',
   port: 5432,
@@ -76,4 +76,53 @@ exports.addToCart = async (req, res) => {
   const {rows} = await pool.query(selectQuery);
   console.log(rows);
   return res.status(200).json('good');
+};
+
+
+exports.checkout = async (req, res) => {
+  const select = `SELECT shoppingcart from Person `+
+  `where userid = $1`;
+
+  const selectQuery = {
+    text: select,
+    values: [req.user.userid],
+  };
+  const {rows} = await pool.query(selectQuery);
+  console.log(rows[0].shoppingcart);
+
+
+  const storeItems = new Map([
+    [1, {priceInCents: 10000, name: 'learnreac'}],
+    [2, {priceInCents: 20000, name: 'learn css'}],
+  ]);
+
+  const test = [
+    {id: 1, quantity: 1},
+  ];
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: test.map((item) => {
+        const storeItem = storeItems.get(item.id);
+        return {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: storeItem.name,
+            },
+            unit_amount: storeItem.priceInCents,
+          },
+          quantity: item.quantity,
+        };
+      }),
+      success_url: `${process.env.CLIENT_URL}/success.html`,
+      cancel_url: `${process.env.CLIENT_URL}/cancel.html`,
+    });
+    console.log(session.url);
+    res.status(200).json({url: session.url});
+  } catch (e) {
+    res.status(500).json({error: e.message});
+  }
 };

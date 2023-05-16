@@ -6,11 +6,45 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Items from './Items';
-import {Button, MenuItem, TextField} from '@mui/material';
-
+import {Button, IconButton, MenuItem, TextField} from '@mui/material';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {useNavigate} from 'react-router-dom';
 
 const drawerWidth = 325;
+
+const checkout = () => {
+  console.log('checkout');
+  const item = localStorage.getItem('user');
+  if (!item) {
+    return;
+  }
+
+  const user = JSON.parse(item);
+  const bearerToken = user ? user.accessToken : '';
+  fetch(`http://localhost:3010/v0/checkout`, {
+    method: 'GET',
+    headers: new Headers({
+      'Authorization': `Bearer ${bearerToken}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.log('notok');
+        throw response;
+      }
+      return response.json();
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+      // setMail([]);
+      // setError(`${error.status} - ${error.statusText}`);
+    });
+};
+
 
 /**
  * @return {void}
@@ -35,6 +69,10 @@ export default function Dashboard() {
           <Typography variant='h6' noWrap component='div'>
             E-Commerce
           </Typography>
+          <IconButton onClick={() => checkout()}>
+            <ShoppingCartOutlinedIcon/>
+          </IconButton>
+
         </Toolbar>
       </AppBar>
       <Drawer
