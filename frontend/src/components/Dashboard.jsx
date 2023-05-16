@@ -36,7 +36,7 @@ const checkout = () => {
       return response.json();
     })
     .then((res) => {
-      console.log(res);
+      window.location = res.url;
     })
     .catch((error) => {
       console.log(error);

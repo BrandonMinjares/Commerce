@@ -98,6 +98,7 @@ exports.checkout = async (req, res) => {
 
   const test = [
     {id: 1, quantity: 1},
+    {id: 2, quantity: 1},
   ];
 
   try {
