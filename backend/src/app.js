@@ -17,6 +17,7 @@ const apiSpec = path.join(__dirname, '../api/openapi.yaml');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: true}));
