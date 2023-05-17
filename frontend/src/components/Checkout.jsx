@@ -1,8 +1,41 @@
-import {Box, Card, CardContent,
+import {Box, Button, Card, CardContent,
   CardMedia,
   Grid, IconButton, Typography} from '@mui/material';
 import React, {useEffect, useState} from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+const checkout = () => {
+  console.log('checkout');
+  const item = localStorage.getItem('user');
+  if (!item) {
+    return;
+  }
+
+  const user = JSON.parse(item);
+  const bearerToken = user ? user.accessToken : '';
+  fetch(`http://localhost:3010/v0/checkout`, {
+    method: 'GET',
+    headers: new Headers({
+      'Authorization': `Bearer ${bearerToken}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.log('notok');
+        throw response;
+      }
+      return response.json();
+    })
+    .then((res) => {
+      window.location = res.url;
+    })
+    .catch((error) => {
+      console.log(error);
+      // setMail([]);
+      // setError(`${error.status} - ${error.statusText}`);
+    });
+};
 
 const getUserItems = (setItems) => {
   const item = localStorage.getItem('user');
@@ -95,6 +128,7 @@ export default function Checkout() {
         </Grid>
         <Grid item xs={4} sm={4} md={4} lg={4}>
             Cost
+          <Button onClick={() => checkout()}>Checkout</Button>
         </Grid>
       </Grid>
 
