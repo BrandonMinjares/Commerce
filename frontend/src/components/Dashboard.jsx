@@ -12,6 +12,7 @@ import {useNavigate} from 'react-router-dom';
 
 const drawerWidth = 325;
 
+/*
 const checkout = () => {
   console.log('checkout');
   const item = localStorage.getItem('user');
@@ -44,6 +45,7 @@ const checkout = () => {
       // setError(`${error.status} - ${error.statusText}`);
     });
 };
+*/
 
 
 /**
@@ -70,7 +72,7 @@ export default function Dashboard() {
           <Typography variant='h6' noWrap component='div'>
             E-Commerce
           </Typography>
-          <IconButton onClick={() => checkout()}>
+          <IconButton onClick={() => navigate('/checkout')}>
             <ShoppingCartOutlinedIcon/>
           </IconButton>
 
