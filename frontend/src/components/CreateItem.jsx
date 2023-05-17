@@ -48,7 +48,8 @@ export default function CreateItem() {
     })
       .then((res) => {
         if (!res.ok) throw res;
-        return res.json();
+        window.location.href =
+        'http://localhost:3000/';
       })
       .catch((err) => {
         console.log(err);
