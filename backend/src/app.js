@@ -17,6 +17,7 @@ const apiSpec = path.join(__dirname, '../api/openapi.yaml');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -40,6 +41,9 @@ app.post('/v0/register', auth.register);
 app.post('/v0/item', auth.check, item.uploadItem);
 app.get('/v0/item', auth.check, item.getItems);
 app.get('/v0/item/:itemID', auth.check, item.getItem);
+
+app.get('/v0/usersItems', auth.check, item.getAllUsersItems);
+
 app.get('/v0/checkout', auth.check, item.checkout);
 
 app.post('/v0/insertItem/:id', auth.check, item.addToCart);

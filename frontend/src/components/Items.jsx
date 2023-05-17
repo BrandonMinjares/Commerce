@@ -36,16 +36,12 @@ const getItems = (setItems) => {
     .then((res) => {
       for (let i = 0; i < res.length; i++) {
         if (res[i].data.fileImage) {
-          const bufferData = (res[i].data.fileImage.buffer.data);
-          const mimetype = (res[i].data.fileImage.mimetype);
-          console.log(mimetype);
-          const blob = new Blob([bufferData], {type: mimetype});
-          const imageUrl = URL.createObjectURL(blob);
-          console.log(imageUrl);
-          res[i].data.imageUrl = imageUrl;
+          const buffer = res[i].data.fileImage.buffer.data;
+          const base64String =
+          window.btoa(String.fromCharCode(...new Uint8Array(buffer)));
+          res[i].data.urlLink = base64String;
         }
       }
-      console.log(res);
       setItems(res);
     })
     .catch((error) => {
@@ -124,7 +120,7 @@ const Items = () => {
                     handleClickOpen(row)}>
                     <CardMedia
                       component="img"
-                      src={truck}
+                      src={`data:image/png;base64,${row.data.urlLink}`}
                       alt="Paella dish"
                     />
                     <Grid container>

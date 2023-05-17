@@ -148,6 +148,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+
+  /usersItems:
+    get:
+      security:
+        - bearerAuth: []
+      description: Get Item
+      responses:
+        200:
+          description: Item Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemsArray'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
   /insertItem/{id}:
     post:
       security:
