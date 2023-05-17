@@ -16,6 +16,7 @@ app.use(fileUpload());
 
 exports.uploadItem = async (req, res) => {
   const body = req.body;
+  console.log(req.body);
   console.log(req.files);
   body.fileImage = req.files[0];
 

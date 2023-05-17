@@ -1,6 +1,8 @@
-import {Grid, Typography} from '@mui/material';
+import {Box, Card, CardContent,
+  CardMedia,
+  Grid, IconButton, Typography} from '@mui/material';
 import React, {useEffect, useState} from 'react';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const getUserItems = (setItems) => {
   const item = localStorage.getItem('user');
@@ -61,11 +63,33 @@ export default function Checkout() {
         <Grid item xs={8} sm={8} md={8} lg={8}>
           {items.length > 0 &&
             items.map((row, index) => (
-              <Grid item key={row.itemid} xs={12} sm={6} md={4}>
-                <img src={`data:image/png;base64,${row.data.urlLink}`}
-                  alt="Paella dish"/>
-                {row.data.product}
-                {row.data.description}
+              <Grid item key={row.itemid} xs={12} sm={12} md={12}>
+                <Card sx={{display: 'flex', padding: 2}}>
+                  <CardMedia
+                    component="img"
+                    alt="Card Image"
+                    src={`data:image/png;base64,${row.data.urlLink}`}
+                    style={{width: 200, height: 'auto'}}
+                  />
+                  <Box sx={{display: 'flex', flexDirection: 'column'}}>
+                    <CardContent>
+                      <Typography variant="h5" component="h2">
+                        {row.data.product}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        {row.data.description}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        ${row.data.price}
+                      </Typography>
+                    </CardContent>
+                    <Box>
+                      <IconButton>
+                        <DeleteIcon></DeleteIcon>
+                      </IconButton>
+                    </Box>
+                  </Box>
+                </Card>
               </Grid>
             ))}
         </Grid>
