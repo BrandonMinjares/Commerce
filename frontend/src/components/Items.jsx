@@ -119,8 +119,10 @@ const Items = () => {
                     handleClickOpen(row)}>
                     <CardMedia
                       component="img"
+                      style={{maxWidth: '100%', maxHeight: '100%',
+                        margin: 'auto', position: 'relative'}}
                       src={`data:image/png;base64,${row.data.urlLink}`}
-                      alt="Paella dish"
+                      alt={row.data.product}
                     />
                     <Grid container>
                       <Grid item xs={8}>
