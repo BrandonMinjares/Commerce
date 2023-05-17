@@ -37,48 +37,50 @@ const checkout = () => {
     });
 };
 
-const getUserItems = (setItems) => {
-  const item = localStorage.getItem('user');
-  if (!item) {
-    return;
-  }
-  const user = JSON.parse(item);
-  const bearerToken = user ? user.accessToken : '';
-  fetch(`http://localhost:3010/v0/usersItems`, {
-    method: 'GET',
-    headers: new Headers({
-      'Authorization': `Bearer ${bearerToken}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        console.log('notok');
-        throw response;
-      }
-      return response.json();
-    })
-    .then((res) => {
-      console.log(res);
-      for (let i = 0; i < res.length; i++) {
-        if (res[i].data.fileImage) {
-          const buffer = res[i].data.fileImage.buffer.data;
-          const base64String =
-          window.btoa(String.fromCharCode(...new Uint8Array(buffer)));
-          res[i].data.urlLink = base64String;
-        }
-      }
-      setItems(res);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+
 /**
  * @return {void}
  */
 export default function Checkout() {
   const [items, setItems] = useState([]);
+
+  const getUserItems = (setItems) => {
+    const item = localStorage.getItem('user');
+    if (!item) {
+      return;
+    }
+    const user = JSON.parse(item);
+    const bearerToken = user ? user.accessToken : '';
+    fetch(`http://localhost:3010/v0/usersItems`, {
+      method: 'GET',
+      headers: new Headers({
+        'Authorization': `Bearer ${bearerToken}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.log('notok');
+          throw response;
+        }
+        return response.json();
+      })
+      .then((res) => {
+        console.log(res);
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].data.fileImage) {
+            const buffer = res[i].data.fileImage.buffer.data;
+            const base64String =
+            window.btoa(String.fromCharCode(...new Uint8Array(buffer)));
+            res[i].data.urlLink = base64String;
+          }
+        }
+        setItems(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     getUserItems(setItems);
@@ -118,7 +120,7 @@ export default function Checkout() {
                     </CardContent>
                     <Box>
                       <IconButton>
-                        <DeleteIcon></DeleteIcon>
+                        <DeleteIcon onClick={() => console.log('delete item')}/>
                       </IconButton>
                     </Box>
                   </Box>

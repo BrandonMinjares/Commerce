@@ -10,7 +10,6 @@ import {Avatar, Button, CardActionArea, CardContent, CardHeader,
 import './../css/App.css';
 // import {useNavigate} from 'react-router-dom';
 
-import truck from './../images/truck.f5b5065b.jpg';
 
 const getItems = (setItems) => {
   const item = localStorage.getItem('user');
@@ -180,7 +179,7 @@ const Items = () => {
                 <img
                   style={{maxWidth: '100%',
                     maxHeight: 'calc(100vh - 64px)'}}
-                  src={truck}
+                    src={`data:image/png;base64,${item.urlLink}`}
                   alt='truck'
                 />
               </DialogContent>
