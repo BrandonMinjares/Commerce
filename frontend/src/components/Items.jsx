@@ -131,11 +131,16 @@ const Items = () => {
                       {row.data.product}</Typography>
                   </Box>
                 </Card>
-                <Grid item xs={12} padding={0.5}>
+                <Grid item xs={12}>
                   <Button autoFocus fullWidth
                     onClick={() => addToCart(row.itemid)}
-                    sx={{backgroundColor: 'black', color: 'white',
-                      textAlign: 'center'}}
+                    sx={{'bgcolor': 'black', 'color': 'white',
+                      'textAlign': 'center', 'border': 1,
+                      ':hover': {
+                        bgcolor: 'white',
+                        color: 'black',
+                      },
+                    }}
                   >
                             + Add to Cart
                   </Button>
