@@ -35,12 +35,18 @@ const getItems = (setItems) => {
     .then((res) => {
       for (let i = 0; i < res.length; i++) {
         if (res[i].data.fileImage) {
+          console.log(res[i].data);
           const buffer = res[i].data.fileImage.buffer.data;
-          const base64String =
-          window.btoa(String.fromCharCode(...new Uint8Array(buffer)));
-          res[i].data.urlLink = base64String;
+          const byteArray = new Uint8Array(buffer);
+          const blob = new Blob([byteArray]);
+
+
+          const dataURL = URL.createObjectURL(blob);
+
+          res[i].data.urlLink = dataURL;
         }
       }
+      console.log(res);
       setItems(res);
     })
     .catch((error) => {
@@ -121,7 +127,7 @@ const Items = () => {
                       component="img"
                       style={{maxWidth: '100%', maxHeight: '100%',
                         margin: 'auto', position: 'relative'}}
-                      src={`data:image/png;base64,${row.data.urlLink}`}
+                      src={row.data.urlLink}
                       alt={row.data.product}
                     />
                     <Grid container>
@@ -181,8 +187,8 @@ const Items = () => {
                 <img
                   style={{maxWidth: '100%',
                     maxHeight: 'calc(100vh - 64px)'}}
-                    src={`data:image/png;base64,${item.urlLink}`}
-                  alt='truck'
+                    src={item.urlLink}
+                    alt='truck'
                 />
               </DialogContent>
             </Grid>

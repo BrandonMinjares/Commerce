@@ -7,11 +7,11 @@ const pool = new Pool({
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
 });
-const express = require('express');
-const fileUpload = require('express-fileupload');
-const app = express();
+// const express = require('express');
+// const fileUpload = require('express-fileupload');
+// const app = express();
 
-app.use(fileUpload());
+// app.use(fileUpload());
 
 
 exports.uploadItem = async (req, res) => {
