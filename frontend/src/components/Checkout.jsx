@@ -1,8 +1,7 @@
 import {Box, Button, Card, CardContent,
   CardMedia,
-  Grid, IconButton, Typography} from '@mui/material';
+  Grid, Typography} from '@mui/material';
 import React, {useEffect, useState} from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 const checkout = () => {
   console.log('checkout');
@@ -66,13 +65,14 @@ export default function Checkout() {
         return response.json();
       })
       .then((res) => {
-        console.log(res);
         for (let i = 0; i < res.length; i++) {
           if (res[i].data.fileImage) {
+            // console.log(res[i].data);
             const buffer = res[i].data.fileImage.buffer.data;
-            const base64String =
-            window.btoa(String.fromCharCode(...new Uint8Array(buffer)));
-            res[i].data.urlLink = base64String;
+            const byteArray = new Uint8Array(buffer);
+            const blob = new Blob([byteArray]);
+            const dataURL = URL.createObjectURL(blob);
+            res[i].data.urlLink = dataURL;
           }
         }
         setItems(res);
@@ -103,7 +103,7 @@ export default function Checkout() {
                   <CardMedia
                     component="img"
                     alt="Card Image"
-                    src={`data:image/png;base64,${row.data.urlLink}`}
+                    src={row.data.urlLink}
                     style={{width: 200, height: 'auto'}}
                   />
                   <Box sx={{display: 'flex', flexDirection: 'column'}}>
@@ -118,11 +118,6 @@ export default function Checkout() {
                         ${row.data.price}
                       </Typography>
                     </CardContent>
-                    <Box>
-                      <IconButton>
-                        <DeleteIcon onClick={() => console.log('delete item')}/>
-                      </IconButton>
-                    </Box>
                   </Box>
                 </Card>
               </Grid>

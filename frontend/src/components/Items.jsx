@@ -35,7 +35,7 @@ const getItems = (setItems) => {
     .then((res) => {
       for (let i = 0; i < res.length; i++) {
         if (res[i].data.fileImage) {
-          console.log(res[i].data);
+          // console.log(res[i].data);
           const buffer = res[i].data.fileImage.buffer.data;
           const byteArray = new Uint8Array(buffer);
           const blob = new Blob([byteArray]);
@@ -126,7 +126,7 @@ const Items = () => {
                     <CardMedia
                       component="img"
                       style={{maxWidth: '100%',
-                      position: 'relative', height: 300}}
+                        position: 'relative', height: 300}}
                       src={row.data.urlLink}
                       alt={row.data.product}
                     />
@@ -181,18 +181,18 @@ const Items = () => {
           </DialogTitle>
 
           <Grid container>
-            <Grid item xs={8}>
+            <Grid item xs={6}>
 
               <DialogContent>
                 <img
                   style={{maxWidth: '100%',
-                    maxHeight: 'calc(100vh - 64px)'}}
-                    src={item.urlLink}
-                    alt='truck'
+                    position: 'relative', height: 300}}
+                  src={item.urlLink}
+                  alt='truck'
                 />
               </DialogContent>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <DialogContent>
                 <DialogContentText sx={{fontSize: '22px'}}>
                   {item.product}
@@ -209,11 +209,6 @@ const Items = () => {
                 <DialogContentText>
                   {item.description}
                 </DialogContentText>
-                <DialogActions>
-                  <Button autoFocus onClick={handleClose}>
-                            Message Seller
-                  </Button>
-                </DialogActions>
               </DialogContent>
             </Grid>
           </Grid>
