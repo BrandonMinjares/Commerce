@@ -142,6 +142,7 @@ export default function CreateItem() {
                 </TextField>
 
                 <TextField
+                  type="number"
                   margin="normal"
                   required
                   fullWidth
@@ -152,6 +153,7 @@ export default function CreateItem() {
                   aria-label='Price'
                 />
                 <TextField
+                  type="number"
                   margin="normal"
                   required
                   fullWidth
