@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Items from './Items';
-import {Button, IconButton, MenuItem, TextField} from '@mui/material';
+import {Button, IconButton, MenuItem, TextField, Tooltip} from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {useNavigate} from 'react-router-dom';
 import SignOn from './SignOn';
@@ -71,13 +71,24 @@ export default function Dashboard() {
           color: 'black'}}
       >
         <Toolbar>
-          <Typography variant='h6' noWrap component='div'>
-            E-Commerce
-          </Typography>
-          <IconButton onClick={() => navigate('/checkout')}>
-            <ShoppingCartOutlinedIcon/>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{mr: 2}}
+          >
           </IconButton>
+          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+          fakecommerce
+          </Typography>
           <SignOn />
+          <Tooltip title="Checkout">
+            <IconButton onClick={() => navigate('/checkout')}>
+              <ShoppingCartOutlinedIcon/>
+            </IconButton>
+          </Tooltip>
+
         </Toolbar>
       </AppBar>
       <Drawer
