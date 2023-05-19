@@ -9,6 +9,7 @@ import Items from './Items';
 import {Button, IconButton, MenuItem, TextField} from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {useNavigate} from 'react-router-dom';
+import SignOn from './SignOn';
 
 const drawerWidth = 325;
 
@@ -60,6 +61,7 @@ export default function Dashboard() {
     navigate('/product/create');
   };
 
+
   return (
     <Box sx={{display: 'flex'}}>
       <CssBaseline />
@@ -75,6 +77,7 @@ export default function Dashboard() {
           <IconButton onClick={() => navigate('/checkout')}>
             <ShoppingCartOutlinedIcon/>
           </IconButton>
+          <SignOn />
         </Toolbar>
       </AppBar>
       <Drawer

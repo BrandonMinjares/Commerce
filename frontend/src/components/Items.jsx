@@ -196,9 +196,7 @@ const Items = () => {
                   aria-label='Create'
                   sx={{mt: 3, mb: 2}}
                   variant="contained"
-                  autoFocus onClick={handleClose}>
-                      Add to Cart
-                </Button>
+                  autoFocus onClick={handleClose}>Close</Button>
               </DialogContent>
             </Grid>
           </Grid>

@@ -42,7 +42,7 @@ export default function Register() {
       })
       .then((json) => {
         window.location.href =
-        'http://localhost:3000/#/login';
+        'http://localhost:3000/login';
       })
       .catch((err) => {
         if (err.status === 409) {
@@ -138,7 +138,7 @@ export default function Register() {
 
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="http://localhost:3000/#/login" variant="body2">
+                <Link href="http://localhost:3000/login" variant="body2">
                   {`Already have an account? Sign in`}
 
                 </Link>
