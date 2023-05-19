@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard';
 import CreateItem from './components/CreateItem';
 import Item from './components/Item';
 import Checkout from './components/Checkout';
+import PrivateRoute from './components/PrivateRoute';
 
 /**
  * Simple component with no state.
@@ -21,10 +22,13 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
-        <Route path="/product/create" element={<CreateItem/>}/>
+        <Route path="/product/create" element={
+          <PrivateRoute><CreateItem/></PrivateRoute>
+        }/>
         <Route path="/product/:id" element={<Item/>}/>
-        <Route path="/checkout" element={<Checkout/>}/>
-
+        <Route path="/checkout" element={
+          <PrivateRoute><Checkout/></PrivateRoute>
+        }/>
         <Route path="/" element={<Dashboard/>}>
           <Route path="/product/:id" element={<Item/>}/>
         </Route>

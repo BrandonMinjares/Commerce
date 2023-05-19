@@ -104,8 +104,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
     get:
-      security:
-        - bearerAuth: []
       description: Get Items
       responses:
         200:
@@ -124,8 +122,6 @@ paths:
 
   /item/{id}:
     get:
-      security:
-        - bearerAuth: []
       parameters:
         - in: path
           name: id

@@ -3,25 +3,18 @@ import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
 // import Typography from '@mui/material/Typography';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {Avatar, Button, CardActionArea, CardHeader,
+import {Box, Button, CardActionArea,
   CardMedia, Dialog, DialogContent,
-  DialogContentText, DialogTitle, Grid} from '@mui/material';
+  DialogContentText, DialogTitle, Grid, Typography} from '@mui/material';
 
 import './../css/App.css';
 // import {useNavigate} from 'react-router-dom';
 
 
 const getItems = (setItems) => {
-  const item = localStorage.getItem('user');
-  if (!item) {
-    return;
-  }
-  const user = JSON.parse(item);
-  const bearerToken = user ? user.accessToken : '';
   fetch(`http://localhost:3010/v0/item`, {
     method: 'GET',
     headers: new Headers({
-      'Authorization': `Bearer ${bearerToken}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     }),
   })
@@ -83,7 +76,6 @@ const addToCart = (id) => {
     })
     .catch((error) => {
       console.log(error);
-      // setMail([]);
       // setError(`${error.status} - ${error.statusText}`);
     });
 };
@@ -132,14 +124,12 @@ const Items = () => {
                       alt={row.data.product}
                     />
                   </CardActionArea>
-                  <CardHeader
-                    title={row.data.product}
-                    subheader={'$' + row.data.price}
-                    avatar={
-                      <Avatar sx={{bgcolor: 'red'}} aria-label="recipe">R
-                      </Avatar>
-                    }
-                  />
+                  <Box m={2} pt={1} pl={1}>
+                    <Typography fontSize={28} color={'black'}>${row.data.price}
+                    </Typography>
+                    <Typography fontSize={24} color={'dark-grey'}>
+                      {row.data.product}</Typography>
+                  </Box>
                 </Card>
                 <Grid item xs={12} padding={0.5}>
                   <Button autoFocus fullWidth
@@ -156,18 +146,18 @@ const Items = () => {
           open={open}
           onClose={handleClose}
           aria-labelledby="responsive-dialog-title"
-          maxWidth='md'
+          maxWidth='lg'
           fullWidth
         >
           <DialogTitle id="responsive-dialog-title"
-            textAlign={'center'} fontSize={28}>
-            {'Marketplace'}
+            textAlign={'center'} fontSize={40}>
+            {item.product}
           </DialogTitle>
           <Grid container>
             <Grid item xs={6}>
               <DialogContent>
                 <img
-                  style={{maxWidth: '100%', height: 400}}
+                  style={{maxWidth: '100%', height: 500}}
                   src={item.urlLink}
                   alt='item'
                 />
@@ -176,19 +166,19 @@ const Items = () => {
             <Grid item xs={6}>
               <DialogContent>
                 <DialogContentText
-                  sx={{fontSize: '26px'}}>
-                  {item.product}
+                  sx={{fontSize: '26px', color: 'black'}}>
+                  {item.category}
                 </DialogContentText>
-                <DialogContentText>
-                  Category: {item.category}
-                </DialogContentText>
-                <DialogContentText>
+                <DialogContentText
+                  sx={{fontSize: '24px', color: 'black'}}>
                   Price: ${item.price}
                 </DialogContentText>
-                <DialogContentText>
+                <DialogContentText
+                  sx={{fontSize: '24px', color: 'black'}}>
                   Condition: {item.condition}
                 </DialogContentText>
-                <DialogContentText>
+                <DialogContentText
+                  sx={{fontSize: '24px', color: 'black'}}>
                   Description: {item.description}
                 </DialogContentText>
                 <Button
