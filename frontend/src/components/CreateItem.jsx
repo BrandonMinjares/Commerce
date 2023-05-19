@@ -1,8 +1,12 @@
-import {Box, Button, FormControl, Grid, MenuItem,
+import {Box, Button, CssBaseline, FormControl, Grid, IconButton, MenuItem,
   TextField,
+  Toolbar,
+  Tooltip,
   Typography} from '@mui/material';
 import React, {useState} from 'react';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import {useNavigate} from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -19,7 +23,8 @@ const theme = createTheme({
 export default function CreateItem() {
   const [category, setCategory] = useState('');
   const [condition, setCondition] = useState('');
-
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
@@ -53,12 +58,34 @@ export default function CreateItem() {
       })
       .catch((err) => {
         console.log(err);
-        // setError(`${err.status} - ${err.statusText}`);
+        setError(`${err.status} - ${err.statusText}`);
       });
   };
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
+
+      <Toolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{mr: 2}}
+        >
+        </IconButton>
+        <Typography variant="h6" component="div" sx={{flexGrow: 1}}
+        >
+          <a href='/'>fakecommerce</a>
+        </Typography>
+        <Tooltip title="Checkout">
+          <IconButton onClick={() => navigate('/checkout')}>
+            <ShoppingCartOutlinedIcon/>
+          </IconButton>
+        </Tooltip>
+
+      </Toolbar>
 
       <Box component="form" noValidate onSubmit={handleSubmit}
         sx={{mt: 2, justifyContent: 'center'}}>
@@ -197,6 +224,7 @@ export default function CreateItem() {
                 >
               Create
                 </Button>
+                {error}
               </Grid>
             </Grid>
           </FormControl>

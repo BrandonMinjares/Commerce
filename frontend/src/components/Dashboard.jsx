@@ -6,10 +6,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Items from './Items';
-import {Button, IconButton, MenuItem, TextField, Tooltip} from '@mui/material';
+import {IconButton, Tooltip} from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {useNavigate} from 'react-router-dom';
 import SignOn from './SignOn';
+import Sidebar from './Sidebar';
 
 const drawerWidth = 325;
 
@@ -53,13 +54,7 @@ const checkout = () => {
  * @return {void}
  */
 export default function Dashboard() {
-  const [sortingType, setSortingType] = React.useState('Newest');
   const navigate = useNavigate();
-
-  const navigateToCreateItem = () => {
-    // 👇️ navigate to /
-    navigate('/product/create');
-  };
 
 
   return (
@@ -103,35 +98,7 @@ export default function Dashboard() {
         }}
       >
         <Toolbar />
-        <Box sx={{textAlign: 'center', padding: 2}}>
-          <Button variant="contained" fullWidth sx={{padding: 1.5}}
-            onClick={navigateToCreateItem}>Create New Product
-          </Button>
-          <TextField
-            select
-            margin="normal"
-            required
-            fullWidth
-            id="condition"
-            name="condition"
-            autoFocus
-            aria-label='Condition'
-            value={sortingType}
-          >
-            <MenuItem
-              onClick={() => setSortingType('Newest')}
-              value={'Newest'}>Newest</MenuItem>
-            <MenuItem
-              onClick={() => setSortingType('Oldest')}
-              value={'Oldest'}>Oldest</MenuItem>
-            <MenuItem
-              onClick={() => setSortingType('Price High')}
-              value={'Price High'}>Price High</MenuItem>
-            <MenuItem
-              onClick={() => setSortingType('Price Low')}
-              value={'Price Low'}>Price Low</MenuItem>
-          </TextField>
-        </Box>
+        <Sidebar />
       </Drawer>
       <Box component='main' sx={{flexGrow: 1, p: 3}}>
         <Toolbar />
