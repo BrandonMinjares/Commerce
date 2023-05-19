@@ -75,7 +75,6 @@ export default function Dashboard() {
           <IconButton onClick={() => navigate('/checkout')}>
             <ShoppingCartOutlinedIcon/>
           </IconButton>
-
         </Toolbar>
       </AppBar>
       <Drawer

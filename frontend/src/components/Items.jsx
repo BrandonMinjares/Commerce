@@ -173,11 +173,7 @@ const Items = () => {
                 />
               </DialogContent>
             </Grid>
-            <Grid container xs={6}
-              direction="column"
-              alignItems="center"
-              justifyContent="center"
-            >
+            <Grid item xs={6}>
               <DialogContent>
                 <DialogContentText
                   sx={{fontSize: '26px'}}>
