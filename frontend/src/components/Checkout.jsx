@@ -4,7 +4,7 @@ import {Box, Button, Card, CardContent,
 import React, {useEffect, useState} from 'react';
 
 const checkout = () => {
-  console.log('checkout');
+  // console.log('checkout');
   const item = localStorage.getItem('user');
   if (!item) {
     return;

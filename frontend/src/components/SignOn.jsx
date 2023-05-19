@@ -10,8 +10,15 @@ export default function SignOn() {
 
   return (
     <div>
-      <Button onClick={() => navigate('/login')}>Sign In</Button>
-      <Button onClick={() => navigate('/register')}>Sign Up</Button>
+      <Button color='primary'
+        type="submit"
+        aria-label='Create'
+        variant="contained"
+        onClick={() => navigate('/login')}>Sign In</Button>
+      <Button
+        type="submit"
+        aria-label='Create'
+        onClick={() => navigate('/register')}>Sign Up</Button>
     </div>
 
   );

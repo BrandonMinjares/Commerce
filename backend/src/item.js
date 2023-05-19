@@ -16,8 +16,8 @@ const pool = new Pool({
 
 exports.uploadItem = async (req, res) => {
   const body = req.body;
-  console.log(req.body);
-  console.log(req.files);
+  // console.log(req.body);
+  // console.log(req.files);
   body.fileImage = req.files[0];
 
 
@@ -39,21 +39,20 @@ exports.uploadItem = async (req, res) => {
 };
 
 exports.getItems = async (req, res) => {
-  console.log('in get items');
+  //  ('in get items');
 
   const select = 'Select * from item';
   const selectQuery = {
     text: select,
   };
   const {rows} = await pool.query(selectQuery);
-  console.log(rows);
+  // console.log(rows);
   return res.status(200).json(rows);
 };
 
 
 exports.getItem = async (req, res) => {
   // console.log(req.params);
-  console.log('test');
   const id = req.params.itemID;
   // console.log(id);
   const select = 'Select * from item where itemID = $1';
@@ -62,12 +61,11 @@ exports.getItem = async (req, res) => {
     values: [id],
   };
   const {rows} = await pool.query(selectQuery);
-  console.log(rows[0]);
+  // console.log(rows[0]);
   return res.status(200).json(rows);
 };
 
 exports.getAllUsersItems = async (req, res) => {
-  console.log('test');
   const select = `SELECT shoppingcart from Person `+
   `where userid = $1`;
 
@@ -77,7 +75,7 @@ exports.getAllUsersItems = async (req, res) => {
   };
   const {rows} = await pool.query(selectQuery);
   const itemIdArray = rows[0].shoppingcart;
-  console.log(itemIdArray);
+  // console.log(itemIdArray);
   const itemsArray = [];
 
   for (const itemID of itemIdArray) {
@@ -88,15 +86,14 @@ exports.getAllUsersItems = async (req, res) => {
     };
     const {rows} = await pool.query(selectItemQuery);
     itemsArray.push(rows[0]);
-    console.log(itemsArray);
+    // console.log(itemsArray);
   }
 
   return res.status(200).json(itemsArray);
 };
 
 exports.addToCart = async (req, res) => {
-  console.log('test');
-  console.log(req.params.id);
+//  console.log(req.params.id);
   const select = 'UPDATE person ' +
   `SET shoppingCart = array_append(shoppingCart, $1) ` +
   'WHERE userid = $2 ';
@@ -104,8 +101,8 @@ exports.addToCart = async (req, res) => {
     text: select,
     values: [req.params.id, req.user.userid],
   };
-  const {rows} = await pool.query(selectQuery);
-  console.log(rows);
+  await pool.query(selectQuery);
+  // console.log(rows);
   return res.status(200).json('good');
 };
 
@@ -118,8 +115,8 @@ exports.checkout = async (req, res) => {
     text: select,
     values: [req.user.userid],
   };
-  const {rows} = await pool.query(selectQuery);
-  console.log(rows[0].shoppingcart);
+  await pool.query(selectQuery);
+  // console.log(rows[0].shoppingcart);
 
 
   const storeItems = new Map([
@@ -152,7 +149,7 @@ exports.checkout = async (req, res) => {
       success_url: `${process.env.CLIENT_URL}/success.html`,
       cancel_url: `${process.env.CLIENT_URL}/cancel.html`,
     });
-    console.log(session.url);
+    // console.log(session.url);
     res.status(200).json({url: session.url});
   } catch (e) {
     res.status(500).json({error: e.message});

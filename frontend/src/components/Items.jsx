@@ -46,7 +46,7 @@ const getItems = (setItems) => {
           res[i].data.urlLink = dataURL;
         }
       }
-      console.log(res);
+      // console.log(res);
       setItems(res);
     })
     .catch((error) => {
@@ -95,7 +95,7 @@ const Items = () => {
 
   const handleClickOpen = (row) => {
     const id = row.itemid;
-    console.log(row);
+    // console.log(row);
     row.data.itemID = row.itemid;
     row.data.userID = row.userid;
     setItem(row.data);

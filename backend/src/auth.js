@@ -25,7 +25,7 @@ exports.login = async (req, res) => {
   if (rows.length == 0) {
     return res.status(401).send('Invalid credentials or user does not exist');
   }
-  console.log(rows);
+  // console.log(rows);
 
   const userid = (rows[0].userid);
 
