@@ -125,8 +125,8 @@ const Items = () => {
                     handleClickOpen(row)}>
                     <CardMedia
                       component="img"
-                      style={{maxWidth: '100%', maxHeight: '100%',
-                        margin: 'auto', position: 'relative'}}
+                      style={{maxWidth: '100%',
+                      position: 'relative', height: 300}}
                       src={row.data.urlLink}
                       alt={row.data.product}
                     />
