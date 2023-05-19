@@ -3,9 +3,9 @@ import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
 // import Typography from '@mui/material/Typography';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
-import {Avatar, Button, CardActionArea, CardContent, CardHeader,
-  CardMedia, Dialog, DialogActions, DialogContent,
-  DialogContentText, DialogTitle, Grid, Typography} from '@mui/material';
+import {Avatar, Button, CardActionArea, CardHeader,
+  CardMedia, Dialog, DialogContent,
+  DialogContentText, DialogTitle, Grid} from '@mui/material';
 
 import './../css/App.css';
 // import {useNavigate} from 'react-router-dom';
@@ -118,45 +118,28 @@ const Items = () => {
     <div>
       <Grid container spacing={2}>
         {items.length > 0 &&
-            items.map((row, index) => (
+            items.map((row) => (
               <Grid item key={row.itemid} xs={12} sm={6} md={4}>
                 <Card sx={{borderRadius: '10px'}}>
-                  <CardActionArea onClick={() =>
-                    handleClickOpen(row)}>
+                  <CardActionArea>
                     <CardMedia
+                      onClick={() =>
+                        handleClickOpen(row)}
                       component="img"
                       style={{maxWidth: '100%',
                         position: 'relative', height: 300}}
                       src={row.data.urlLink}
                       alt={row.data.product}
                     />
-                    <Grid container>
-                      <Grid item xs={8}>
-                        <CardContent>
-                          <Typography variant="body2"
-                            color="text.secondary" fontSize={'18px'}
-                            fontWeight={'bold'}
-                          >
-                          ${row.data.price}
-                          </Typography>
-                        </CardContent>
-                        <CardContent>
-                          <Typography variant="body2" color="text.secondary"
-                            fontSize={'18px'}>
-                            {row.data.product}
-                          </Typography>
-                        </CardContent>
-                      </Grid>
-                      <Grid item xs={4}>
-                        <CardHeader
-                          avatar={
-                            <Avatar sx={{bgcolor: 'red'}} aria-label="recipe">R
-                            </Avatar>
-                          }
-                        />
-                      </Grid>
-                    </Grid>
                   </CardActionArea>
+                  <CardHeader
+                    title={row.data.product}
+                    subheader={'$' + row.data.price}
+                    avatar={
+                      <Avatar sx={{bgcolor: 'red'}} aria-label="recipe">R
+                      </Avatar>
+                    }
+                  />
                 </Card>
                 <Grid item xs={12} padding={0.5}>
                   <Button autoFocus fullWidth
@@ -176,25 +159,28 @@ const Items = () => {
           maxWidth='md'
           fullWidth
         >
-          <DialogTitle id="responsive-dialog-title" textAlign={'center'}>
+          <DialogTitle id="responsive-dialog-title"
+            textAlign={'center'} fontSize={28}>
             {'Marketplace'}
           </DialogTitle>
-
           <Grid container>
             <Grid item xs={6}>
-
               <DialogContent>
                 <img
-                  style={{maxWidth: '100%',
-                    position: 'relative', height: 300}}
+                  style={{maxWidth: '100%', height: 400}}
                   src={item.urlLink}
-                  alt='truck'
+                  alt='item'
                 />
               </DialogContent>
             </Grid>
-            <Grid item xs={6}>
+            <Grid container xs={6}
+              direction="column"
+              alignItems="center"
+              justifyContent="center"
+            >
               <DialogContent>
-                <DialogContentText sx={{fontSize: '22px'}}>
+                <DialogContentText
+                  sx={{fontSize: '26px'}}>
                   {item.product}
                 </DialogContentText>
                 <DialogContentText>
@@ -207,16 +193,19 @@ const Items = () => {
                   Condition: {item.condition}
                 </DialogContentText>
                 <DialogContentText>
-                  {item.description}
+                  Description: {item.description}
                 </DialogContentText>
+                <Button
+                  color='primary'
+                  aria-label='Create'
+                  sx={{mt: 3, mb: 2}}
+                  variant="contained"
+                  autoFocus onClick={handleClose}>
+                      Add to Cart
+                </Button>
               </DialogContent>
             </Grid>
           </Grid>
-          <DialogActions>
-            <Button autoFocus onClick={handleClose}>
-                      Add to Cart
-            </Button>
-          </DialogActions>
         </Dialog>
       </Grid>
     </div>
