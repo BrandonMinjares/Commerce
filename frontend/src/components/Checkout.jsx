@@ -42,7 +42,7 @@ const checkout = () => {
  */
 export default function Checkout() {
   const [items, setItems] = useState([]);
-
+  const [cost, setCost] = useState(0);
   const getUserItems = (setItems) => {
     const item = localStorage.getItem('user');
     if (!item) {
@@ -65,6 +65,7 @@ export default function Checkout() {
         return response.json();
       })
       .then((res) => {
+        let totalCost = 0;
         for (let i = 0; i < res.length; i++) {
           if (res[i].data.fileImage) {
             // console.log(res[i].data);
@@ -74,7 +75,9 @@ export default function Checkout() {
             const dataURL = URL.createObjectURL(blob);
             res[i].data.urlLink = dataURL;
           }
+          totalCost += parseInt(res[i].data.price);
         }
+        setCost(totalCost);
         setItems(res);
       })
       .catch((error) => {
@@ -122,10 +125,22 @@ export default function Checkout() {
             ))}
         </Grid>
         <Grid item xs={4} sm={4} md={4} lg={4}>
-          <Button onClick={() => checkout()}>
-            <Typography
-              textAlign={'center'} fontSize={30}>Checkout</Typography>
+          <Typography
+            textAlign={'center'}
+            sx={{color: 'black'}}
+            fontSize={28}>Subtotal ${cost}
+          </Typography>
+          <Button
+            color='primary'
+            type="submit"
+            aria-label='Create'
+            fullWidth
+            variant="contained"
+            onClick={() => checkout()}>
+          Checkout
           </Button>
+        </Grid>
+        <Grid item xs={4} sm={4} md={4} lg={4}>
         </Grid>
       </Grid>
 

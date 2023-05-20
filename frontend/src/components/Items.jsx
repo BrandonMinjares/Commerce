@@ -124,10 +124,10 @@ const Items = () => {
                       alt={row.data.product}
                     />
                   </CardActionArea>
-                  <Box m={2} pt={1} pl={1}>
-                    <Typography fontSize={28} color={'black'}>${row.data.price}
+                  <Box m={2} pt={1}>
+                    <Typography fontSize={26} color={'black'}>${row.data.price}
                     </Typography>
-                    <Typography fontSize={24} color={'dark-grey'}>
+                    <Typography fontSize={22} color={'dark-grey'}>
                       {row.data.product}</Typography>
                   </Box>
                 </Card>
