@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Paper} from '@mui/material';
+import everestImage from './../images/evan-qu-pmpHBkoLfCg-unsplash.jpg';
 
 const theme = createTheme();
 
@@ -71,6 +72,7 @@ export default function SignIn() {
           sm={4}
           md={7}
           sx={{
+            backgroundImage: `url(${everestImage})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ?
