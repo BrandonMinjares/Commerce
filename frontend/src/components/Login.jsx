@@ -138,6 +138,17 @@ export default function SignIn() {
                 </Grid>
               </Grid>
             </Box>
+            <Box paddingTop={40} textAlign={'center'}>
+              <Typography fontSize={20}>
+                Guest credentials
+              </Typography >
+              <Typography fontSize={16}>
+                email: user@example.com
+              </Typography>
+              <Typography fontSize={16}>
+                password: string
+              </Typography>
+            </Box>
           </Box>
         </Grid>
       </Grid>

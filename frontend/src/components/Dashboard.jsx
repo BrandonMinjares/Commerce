@@ -74,7 +74,7 @@ export default function Dashboard() {
             sx={{mr: 2}}
           >
           </IconButton>
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+          <Typography variant="h5" component="div" sx={{flexGrow: 1}}>
           fakecommerce
           </Typography>
           <SignOn />
@@ -83,7 +83,6 @@ export default function Dashboard() {
               <ShoppingCartOutlinedIcon/>
             </IconButton>
           </Tooltip>
-
         </Toolbar>
       </AppBar>
       <Drawer
