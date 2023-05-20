@@ -89,7 +89,7 @@ export default function CreateItem() {
 
       <Box component="form" noValidate onSubmit={handleSubmit}
         sx={{mt: 2, justifyContent: 'center'}}>
-        <Typography textAlign={'center'} fontSize={30}>
+        <Typography textAlign={'center'} fontSize={32} padding={2}>
           Create a Product
         </Typography>
         <Grid container direction='row' justifyContent="center">

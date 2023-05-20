@@ -325,6 +325,14 @@ components:
             - Acceptable
         description:
           type: string
+      required:
+      - fileImage
+      - product
+      - category
+      - price
+      - condition
+      - quantity
+      - description
 
     ItemsArray:
       type: array
