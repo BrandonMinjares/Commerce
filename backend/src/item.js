@@ -115,39 +115,45 @@ exports.checkout = async (req, res) => {
     text: select,
     values: [req.user.userid],
   };
-  await pool.query(selectQuery);
-  // console.log(rows[0].shoppingcart);
+  const {rows} = await pool.query(selectQuery);
+  console.log(rows[0].shoppingcart);
 
+  // let itemsArray = [];
+  const itemsArray = [];
+  for (let i = 0; i < rows[0].shoppingcart.length; i++) {
+    const itemId = rows[0].shoppingcart[i];
+    const selectItem = `SELECT itemid, data from Item `+
+    `where itemid = $1`;
 
-  const storeItems = new Map([
-    [1, {priceInCents: 10000, name: 'learnreac'}],
-    [2, {priceInCents: 20000, name: 'learn css'}],
-  ]);
+    const selectItemQuery = {
+      text: selectItem,
+      values: [itemId],
+    };
 
-  const test = [
-    {id: 1, quantity: 1},
-    {id: 2, quantity: 1},
-  ];
+    const item = await pool.query(selectItemQuery);
+    itemsArray.push(item.rows[0]);
+  }
+  console.log(itemsArray);
+
 
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
-      line_items: test.map((item) => {
-        const storeItem = storeItems.get(item.id);
+      line_items: itemsArray.map((item) => {
         return {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: storeItem.name,
+              name: item.data.product,
             },
-            unit_amount: storeItem.priceInCents,
+            unit_amount: parseInt(item.data.price) * 100,
           },
-          quantity: item.quantity,
+          quantity: 1,
         };
       }),
-      success_url: `${process.env.CLIENT_URL}/success.html`,
-      cancel_url: `${process.env.CLIENT_URL}/cancel.html`,
+      success_url: `${process.env.CLIENT_URL}`,
+      cancel_url: `${process.env.CLIENT_URL}`,
     });
     // console.log(session.url);
     res.status(200).json({url: session.url});
