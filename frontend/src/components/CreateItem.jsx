@@ -97,6 +97,7 @@ export default function CreateItem() {
             <Grid container spacing={2}>
               <Grid item sm={12}>
                 <TextField
+                  required
                   type="file"
                   inputProps={{accept: 'image/*'}}
                   name='file'
