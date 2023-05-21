@@ -131,6 +131,7 @@ export default function Checkout() {
             fontSize={28}>Subtotal ${cost}
           </Typography>
           <Button
+            padding={2}
             color='primary'
             type="submit"
             aria-label='Create'
@@ -140,10 +141,7 @@ export default function Checkout() {
           Checkout
           </Button>
         </Grid>
-        <Grid item xs={4} sm={4} md={4} lg={4}>
-        </Grid>
       </Grid>
-
     </div>
   );
 }
