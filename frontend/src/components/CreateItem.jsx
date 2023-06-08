@@ -44,6 +44,7 @@ export default function CreateItem() {
     const user = JSON.parse(item);
     const bearerToken = user ? user.accessToken : '';
     const form = new FormData(event.currentTarget);
+
     fetch('http://localhost:3010/v0/item', {
       method: 'POST',
       body: form,
@@ -100,8 +101,8 @@ export default function CreateItem() {
                   required
                   type="file"
                   inputProps={{accept: 'image/*'}}
-                  name='file'
-                  id="file"
+                  name='fileImage'
+                  id="fileImage"
                   fullWidth
                 />
               </Grid>
